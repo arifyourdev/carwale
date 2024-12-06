@@ -1,0 +1,257 @@
+    <!--------------------------------- Top Alert -------------------------------->
+    <div class="w-full flex justify-center bg-black p-1 sm:p-5">
+        <div class="w-full max-w-screen-xl flex justify-end">
+            <div class="flex items-center text-white">
+                <span class="flex items-center sm:border-r border-gray-500 pr-1  sm:pr-10 w-[50%] sm:w-full">
+                    <span class="sm:h-8 sm:w-8 h-7 w-7 inline-flex justify-center items-center bg-white rounded-full mr-1 sm:mr-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                            <path fill="black" d="M12 21a9 9 0 1 0 0-18a9 9 0 0 0 0 18m11-9c0 6.075-4.925 11-11 11S1 18.075 1 12S5.925 1 12 1s11 4.925 11 11m-8 4.414l-4-4V5.5h2v6.086L16.414 15z" />
+                        </svg>
+                    </span>
+                    <span class="text-white text-[13px] sm:text-[16px] sm:whitespace-nowrap">Mon- Sat (8:00am- 6:00pm)</span>
+                </span>
+
+                <span class="flex items-center sm:pl-10 sm:pl-1  w-[50%] sm:w-full">
+                    <span class="sm:h-8 sm:w-8 h-7 w-7 inline-flex justify-center items-center bg-white rounded-full mr-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 32 32">
+                            <path fill="black" d="M10.25 2A3.25 3.25 0 0 0 7 5.25v21.5A3.25 3.25 0 0 0 10.25 30h11.5A3.25 3.25 0 0 0 25 26.75V5.25A3.25 3.25 0 0 0 21.75 2zM9 5.25C9 4.56 9.56 4 10.25 4h11.5c.69 0 1.25.56 1.25 1.25v21.5c0 .69-.56 1.25-1.25 1.25h-11.5C9.56 28 9 27.44 9 26.75zM14 24a1 1 0 1 0 0 2h4a1 1 0 1 0 0-2z" />
+                        </svg>
+                    </span>
+                    <span class="text-white text-[13px] sm:text-[16px] sm:whitespace-nowrap">Call: 0743 630 4422</span>
+                </span>
+            </div>
+            <div class="ml-10 mt-1">
+                <% if (user) { %>
+              
+                    
+                    <a href="/logout" class="text-white border-[1px] border-red-500 p-2 px-4 rounded-[10px] mb-0">Logout</a>
+            
+               
+            <% } else { %>
+                <a href="/login" class="text-white border-[1px] border-red-500 p-2 px-4 rounded-[10px] mb-0">Login</a>
+            <% } %>
+              
+            </div>
+            <div class="ml-4 relative  mt-1">
+                <a href="cu-cart">
+                    <span><svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" viewBox="0 0 24 24"><path fill="#e22222" d="M17 18c-1.11 0-2 .89-2 2a2 2 0 0 0 2 2a2 2 0 0 0 2-2a2 2 0 0 0-2-2M1 2v2h2l3.6 7.59l-1.36 2.45c-.15.28-.24.61-.24.96a2 2 0 0 0 2 2h12v-2H7.42a.25.25 0 0 1-.25-.25q0-.075.03-.12L8.1 13h7.45c.75 0 1.41-.42 1.75-1.03l3.58-6.47c.07-.16.12-.33.12-.5a1 1 0 0 0-1-1H5.21l-.94-2M7 18c-1.11 0-2 .89-2 2a2 2 0 0 0 2 2a2 2 0 0 0 2-2a2 2 0 0 0-2-2"/></svg></span>
+                    <span id="cart-count" class="absolute text-white bottom-5 left-4 w-[18px] h-[18px] rounded-[100%] bg-red-500 flex items-center justify-center text-[12px]">
+                       <%= typeof cartCount !== 'undefined' ? cartCount : 0 %>
+       
+                    </span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+<div class="w-full md:flex justify-center sm:px-24 px-2 sticky sticky top-0 z-50 bg-white">
+    <div class="main-header w-full max-w-screen-xl">
+        <!-- Logo Theme -->
+        <div>
+            <a href="/"><img src="assets/images/logo.png" width="150px" alt=""></a>
+        </div>
+
+        <!-- Navigation Links -->
+        <div class="bg-black md:hidden">
+            <button id="menu-toggle" class="focus:outline-none cursor-pointer">
+                <span class="w-[35px] h-[2px] bg-white block mb-2"></span>
+                <span class="w-[35px] h-[2px] bg-white block mb-2"></span>
+                <span class="w-[35px] h-[2px] bg-white block mb-2"></span>
+            </button>
+        </div>
+        <!-- DeskTop -->
+        <div class="navigation-links">
+            <ul class="navigation-links-list">
+             
+                    <li class="link-items--navigation"><a href="/" class="nav-link">Home</a></li>
+                    <li class="link-items--navigation"><a href="/about-us" class="nav-link">About Us</a></li>
+                    <li class="link-items--navigation"><a href="/engines" class="nav-link">Engines For Sale</a></li>
+                    <li class="link-items--navigation"><a href="/car-parts" class="nav-link">Car Parts</a></li>
+           
+                <li class="link-items--navigation drop-down">
+                    <a href="#"> Servicing and MOT <span><img src="assets/images/icons/down-arrow.png"
+                                alt=""></span></a>
+                    <ul class="drop-down-ul animated fadeIn">
+                        <li class="flyout-right">
+                            <div class="tab-container">
+                                <ul class="tab-list animated fadeIn grid">
+                                    <li class="relative tab-link w-[100%]" data-tab="tab1"><a href="#">Servicing and
+                                            MOT</a></li>
+                                    <li class="relative tab-link w-[100%]" data-tab="tab2"><a href="#">Clutch and
+                                            Gearbox repairs</a></li>
+                                    <li class="relative tab-link w-[100%]" data-tab="tab3"><a href="#">Breaks</a></li>
+                                </ul>
+                                <div class="tab-content-container">
+                                    <div class="tab-content" id="tab1" style="display: none;">
+                                        <div class="absolute bg-black top-[-1%] left-[100%] submenu-content">
+                                            <div class="flex px-5 py-5">
+                                                <div class="w-[50%]">
+                                                    <ul class="submenu-ul">
+                                                        <h2 class="text-white mb-3 text-[16px]">MOT</h2>
+                                                        <li><a href="" class="text-white">Full service and MOT</a></li>
+                                                        <li><a href="">Interim service and MOT</a></li>
+                                                    </ul>
+                                                    <ul class="submenu-ul mt-4">
+                                                        <h2 class="text-white mb-3 text-[16px]">Services</h2>
+                                                        <li><a href="">Full Service</a></li>
+                                                        <li><a href="">Interim Service</a></li>
+                                                        <li><a href="">Fuel economy Service</a></li>
+                                                    </ul>
+                                                    <ul class="submenu-ul mt-4">
+                                                        <h2 class="text-white mb-3 text-[16px]">Checks </h2>
+                                                        <li><a href="">Vehicle health check </a></li>
+                                                        <li><a href="">Summer check </a></li>
+                                                        <li><a href="">Winter check </a></li>
+                                                    </ul>
+                                                    <ul class="submenu-ul mt-4">
+                                                        <h2 class="text-white mb-3 text-[16px]">Others</h2>
+                                                        <li><a href="">Vehicle health check </a></li>
+                                                        <li><a href="">Summer check </a></li>
+                                                        <li><a href="">Winter check </a></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="w-[50%]">
+                                                    <ul class="submenu-ul">
+                                                        <h2 class="text-white mb-3 text-[16px]">CHANGES & CLEAN </h2>
+                                                        <li><a href="">Oil Change </a></li>
+                                                        <li><a href="">Brake Fluid Change </a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-content" id="tab2" style="display: none;">
+                                        <div class="absolute bg-black top-[-1%] left-[100%] submenu-content">
+                                            <div class="flex px-5 py-5">
+                                                <div class="w-[50%]">
+                                                    <ul class="submenu-ul">
+                                                        <h2 class="text-white mb-3 text-[16px]">CLUTCH REPAIRS </h2>
+                                                        <li><a href="">Clutch replacement </a></li>
+                                                        <li><a href="">Clutch cable </a></li>
+                                                        <li><a href="">Slipping clutch </a></li>
+                                                        <li><a href="">Slipping clutch </a></li>
+                                                        <li><a href="">Dual clutch issues </a></li>
+                                                        <li><a href="">Dual clutch issues </a></li>
+                                                    </ul>
+                                                    <ul class="submenu-ul mt-4">
+                                                        <h2 class="text-white mb-3 text-[16px]">GEARBOX</h2>
+                                                        <li><a href="">Auto gearbox repairs </a></li>
+                                                        <li><a href="">Manual gearbox repairs </a></li>
+                                                        <li><a href="">Tiptronic gearbox problems </a></li>
+                                                        <li><a href="">Gear linkage </a></li>
+                                                    </ul>
+
+                                                </div>
+                                                <div class="w-[50%]">
+                                                    <ul class="submenu-ul">
+                                                        <h2 class="text-white mb-3 text-[16px]">OTHER </h2>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-content" id="tab3" style="display: none;">
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+             <a href="/book-appointment-new" class="book-appointment-button">Book Appoinment</a>
+         </div>
+    </div>
+ 
+    <!-- Mobile -->
+    <div class="mobile-offcanvas offcanvas offcanvas-start" id="openCanvas">
+        <div class="offcanvas-header">
+        </div>
+        <div class="offcanvas-body">
+            <div class="mobile-menu relative">
+                <ul class="text-center">
+                    <li><a href="" class="bg-red-200 block p-3">Home</a></li>
+                    <li><a href="about-us" class="block p-3">About Us</a></li>
+                    <li><a href="engines" class="block p-3">Engine for Sale</a></li>
+                    <li><a href="car-parts" class="block p-3">Car Part</a></li>
+                    <li class="relative group">
+                        <a href="#" class="flex justify-center items-center">Servicing and MOT <span>
+                                <img src="assets/images/icons/down-arrow.png" class="w-[22px]" alt=""></span>
+                        </a>
+                        <!-- Mega Menu -->
+                        <ul class="absolute left-0 w-full bg-white shadow-lg hidden group-hover:block z-50">
+                            <div class="mt-3">
+                                <li class="menu-item relative">
+                                    <a class="block bg-gray-100 mb-2 p-3 flex justify-center items-center">
+                                        Servicing and MOT <span> <img src="assets/images/icons/down-arrow.png" class="w-[20px]" alt=""></span>
+                                    </a>
+                                     <ul class="overflow-y-auto h-[200px]">
+                                        <div class="grid grid-cols-1 px-3 pb-4 submenu  bg-black">
+                                            <ul class="text-left pt-3">
+                                                <h3 class="text-white text-[18px] mb-1">MOT</h3>
+                                                <li><a href="" class="text-white text-[14px]">Full service and MOT</a></li>
+                                                <li><a href="" class="text-white text-[14px]">Interim service and MOT</a></li>
+                                            </ul>
+                                            <ul class="text-left mt-2">
+                                                <h3 class="text-white text-[18px] mb-1">Checks</h3>
+                                                <li><a href="" class="text-white text-[14px]">Full Service</a></li>
+                                                <li><a href="" class="text-white text-[14px]">Interim Service</a></li>
+                                                <li><a href="" class="text-white text-[14px]">Fuel economy Service</a></li>
+                                            </ul>  
+                                            <ul class="text-left mt-2">
+                                                <h2 class="text-white mb-1 text-[18px]">Checks </h2>
+                                                <li><a href=""class="text-white text-[14px]">Vehicle health check </a></li>
+                                                <li><a href=""class="text-white text-[14px]">Summer check </a></li>
+                                                <li><a href=""class="text-white text-[14px]">Winter check </a></li>
+                                            </ul>
+                                            <ul class="text-left mt-2">
+                                                <h2 class="text-white mb-1 text-[18px]">Others</h2>
+                                                <li><a href="" class="text-white text-[14px]">Vehicle health check </a></li>
+                                                <li><a href=""class="text-white text-[14px]">Summer check </a></li>
+                                                <li><a href="" class="text-white text-[14px]">Winter check </a></li>
+                                            </ul>
+                                        </div>
+                                     </ul>
+                                </li>
+                                <li class="menu-item relative">
+                                    <a href="#" class="block bg-gray-100 mb-2 p-3 flex justify-center items-center">
+                                        Clutch and Gearbox Repair <span>
+                                            <img src="assets/images/icons/down-arrow.png" class="w-[20px]" alt="">
+                                        </span>
+                                    </a>
+                                    <ul class="overflow-y-auto h-[200px]" >
+                                      <div class="grid grid-cols-1 submenu px-3 bg-black pb-4  overflow-y-auto h-[200px]">
+                                        <ul class="text-left pt-3">
+                                            <h3 class="text-white text-[18px] mb-1">Clutch Repair</h3>
+                                            <li><a href="" class="text-white text-[14px]">Full service and MOT</a></li>
+                                            <li><a href="" class="text-white text-[14px]">Interim service and MOT</a></li>
+                                        </ul>
+                                        <ul class="text-left mt-2">
+                                            <h3 class="text-white text-[18px] mb-1">Checks</h3>
+                                            <li><a href="" class="text-white text-[14px]">Full Service</a></li>
+                                            <li><a href="" class="text-white text-[14px]">Interim Service</a></li>
+                                            <li><a href="" class="text-white text-[14px]">Fuel economy Service</a></li>
+                                        </ul>  
+                                     </div>
+                                     </ul>
+                                </li>
+                                <li class="menu-item relative">
+                                    <a href="#"
+                                        class="block bg-gray-100 mb-2 p-3 flex justify-center items-center">Breaks
+                                        <span> <img src="assets/images/icons/down-arrow.png" class="w-[20px]"
+                                                alt=""></span>
+                                    </a>
+                                    <ul class="text-left">
+                                        <li><a href="">MOT</a></li>
+                                    </ul>
+                                </li>
+                            </div>
+                        </ul>
+                    </li>
+
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+</div>

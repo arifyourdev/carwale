@@ -1,0 +1,153 @@
+<html lang="en"></html>
+
+<head>
+    <base href="<%= baseURL %>">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Universal | Update Content</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <%- include('includes/head') %>
+    <link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/42.0.0/ckeditor5.css" />
+</head>
+<style>
+
+</style>
+<body>
+    <div>
+        <div class="flex">
+            <%- include('includes/side-bar') %>
+
+            <div class="pages">
+                <div>
+                    <%- include('includes/header') %>
+                </div>
+                <!-- Page Content -->
+                 <div class="p-5">
+                     <div>
+                         <div class="">
+                            <h3 class="text-2xl font-bold">Update Content</h3>
+                         </div>
+                         <div class="mt-4">
+                              <form method="post" action="/admin/contents">
+                                <div>
+                                    <h2 class="text-[20px] font-[600] text-gray-500">Contact Info</h2>
+                                    <div class="flex gap-5 mt-2">
+                                      <div class="sm:w-[50%]">
+                                          <div>
+                                              <label class="font-[600]">Phone</label>
+                                              <input type="text" name="phone" value="<%= editContent.phone %>" class="p-2 border-[1px] rounded-[10px] w-[100%] mt-2 outline-none" required>
+                                          </div>
+                                      </div>
+                                      <div class="sm:w-[50%]">
+                                          <div>
+                                              <label class="font[600]">Email</label>
+                                              <input type="text" name="email" value="<%= editContent.email %>" class="p-2 border-[1px] rounded-[10px] w-[100%] mt-2 outline-none" required>
+                                           </div>
+                                      </div>
+                                      <div class="sm:w-[50%]">
+                                          <div>
+                                              <label class="font[600]">Address</label>
+                                              <input type="text" name="address" value="<%= editContent.address %>" class="p-2 border-[1px] rounded-[10px] w-[100%] mt-2 outline-none" >
+                                           </div>
+                                      </div>
+                                   </div>
+                                </div>
+                                <div class="mt-5">
+                                    <h2 class="text-[20px] font-[600] text-gray-500">Social Media Links</h2>
+                                    <div class="flex gap-5 mt-2">
+                                      <div class="sm:w-[50%]">
+                                          <div>
+                                              <label class="font-[600]">Facebook</label>
+                                              <input type="text" name="facebook" value="<%= editContent.facebook %>" class="p-2 border-[1px] rounded-[10px] w-[100%] mt-2 outline-none" >
+                                          </div>
+                                      </div>
+                                      <div class="sm:w-[50%]">
+                                          <div>
+                                              <label class="font[600]">Instagram</label>
+                                              <input type="text" name="instagram" value="<%= editContent.instagram %>" class="p-2 border-[1px] rounded-[10px] w-[100%] mt-2 outline-none">
+                                           </div>
+                                      </div>
+                                      <div class="sm:w-[50%]">
+                                          <div>
+                                              <label class="font[600]">Linkedin</label>
+                                              <input type="text" name="linkedin" value="<%= editContent.linkedin %>" class="p-2 border-[1px] rounded-[10px] w-[100%] mt-2 outline-none" required>
+                                           </div>
+                                      </div>
+                                      <div class="sm:w-[50%]">
+                                        <div>
+                                            <label class="font[600]">Twitter</label>
+                                            <input type="text" name="twitter" value="<%= editContent.twitter %>" class="p-2 border-[1px] rounded-[10px] w-[100%] mt-2 outline-none" required>
+                                         </div>
+                                    </div>
+                                   </div>
+                                </div>
+                                <div class="mt-5">
+                                    <h2 class="text-[20px] font-[600] text-gray-500">About Content</h2>
+                                    <div class="flex gap-5 mt-2">
+                                      <div class="sm:w-[50%]">
+                                          <div>
+                                              <label class="font-[600]">About Title</label>
+                                              <input type="text" name="about_title"  value="<%= editContent.about_title %>" class="p-2 border-[1px] rounded-[10px] w-[100%] mt-2 outline-none" >
+                                          </div>
+                                      </div>
+                                       <div class="sm:w-[50%]">
+                                          <div>
+                                              <label class="font[600]">About Image</label>
+                                              <input type="text" name="about_img" value="<%= editContent.about_img %>" class="p-2 border-[1px] rounded-[10px] w-[100%] mt-2 outline-none" >
+                                           </div>
+                                      </div>
+                                   </div>
+                                   <div class="mt-4">
+                                    <div class="sm:w-[100%]">
+                                        <div>
+                                            <label class="font[600]">Description</label>
+                                            <textarea type="text" name="about_desc" id="about_content"  class="p-2 border-[1px] rounded-[10px] w-[100%] mt-2 outline-none" >
+                                                <%= editContent.about_desc %>
+                                            </textarea>
+                                         </div>
+                                    </div>
+                                   </div>
+                                </div>
+                                <div class="mt-5">
+                                    <h2 class="text-[20px] font-[600] text-gray-500">Privacy Policy</h2>
+                                    <div class="mt-2">
+                                    <div class="sm:w-[100%]">
+                                        <div>
+                                            <label class="font[600]">Privacy Policy Content</label>
+                                            <textarea type="text" name="privacy_policy" value="<%= editContent.privacy_policy %>" class="p-2 border-[1px] rounded-[10px] w-[100%] mt-2 outline-none" ></textarea>
+                                         </div>
+                                    </div>
+                                   </div>
+                                </div>
+                                <div class="mt-5">
+                                    <h2 class="text-[20px] font-[600] text-gray-500">Term & Condition</h2>
+                                    <div class="mt-2">
+                                    <div class="sm:w-[100%]">
+                                        <div>
+                                            <label class="font[600]">Content</label>
+                                            <textarea type="text" name="term_condition" value="<%= editContent.term_condition %>" class="p-2 border-[1px] rounded-[10px] w-[100%] mt-2 outline-none" ></textarea>
+                                         </div>
+                                    </div>
+                                   </div>
+                                </div>
+                                 <input type="hidden" name="id" value="<%= editContent.id %>"> 
+                                 <div class="mt-5 text-right">
+                                    <button type="submit" class="p-2 bg-sky-400 text-white px-10 rounded-[10px]">Update</button>
+                                </div>
+                              </form>
+                         </div>
+                     </div>
+                 </div>
+            </div>
+        </div>
+    </div>
+    <%- include('includes/foot') %>
+    <script src="https://cdn.ckeditor.com/4.19.0/standard/ckeditor.js"></script>
+
+    <script>
+      CKEDITOR.replace('about_desc');
+      CKEDITOR.replace('privacy_policy');
+      CKEDITOR.replace('term_condition');
+    </script>
+</body>
+</html>

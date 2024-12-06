@@ -1,0 +1,122 @@
+<html lang="en"></html>
+
+</html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Universal -  Cart</title>
+
+    <%- include('includes/head') %>
+        <!-- Tailwind Css -->
+</head>
+
+<body class="bg-gray-100">
+
+    </style>
+    <!--------------------------------- Main Header Section -------------------------------->
+
+    <%- include('includes/header') %>
+
+        <section class="md:p-10 pt-5">
+            <div class="xl:w-[1280px] m-auto">
+                <div class="md:flex block justify-center gap-10 mx-2">
+                    <div class="md:w-[100%]">
+                        <div class="">
+                            <h3 class="text-2xl font-bold">My Cart</h3>
+                        </div>
+                        <div class=" mt-[25px] rounded-[10px] flex gap-4">
+                           <div class="sm:w-[65%] bg-white p-[25px]">
+                            <table class="table w-[100%]">
+                                <thead>
+                                    <tr class="text-left">
+                                        <th class="text-[18px] font-[700] pb-3">Product</th>
+                                        <th class="text-[18px] font-[700] pb-3 w-[15%]">Price</th>
+                                        <th class="text-[18px] font-[700] pb-3 w-[15%]">Quantity</th>
+                                        <th class="text-[18px] font-[700] pb-3 w-[15%]">Total</th>
+                                        <th class="text-[18px] font-[700] pb-3 w-[10%]"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <%  var total = 0 %>
+                                    <% cartData.forEach(item => { %>
+                                        <% total += (item.product_price * item.quantity); %>
+                                        
+                                    <tr>
+                                        <td>
+                                            <div class="flex items-center gap-2">
+                                                <div><img src="<%= item.product_image %>" class="w-[80px]" alt=""></div>
+                                                <div>
+                                                    <p class="text-gray-400"><%= item.product_name %> </p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>£<%= item.product_price %></td>
+                                        <td>
+                                            <div class="border-[1px] flex justify-between p-[8px] items-center rounded-[10px] cursor-pointer w-[60%]">
+                                                <span>-</span>
+                                                <span><%= item.quantity %></span>
+                                                <span>+</span>
+                                           </div>
+                                        </td>
+                                        <td>£<%= item.product_price * item.quantity %></td>
+                                        <td>
+                                            <a href="/remove-item/<%= item.product_id %>" title="remove"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="#e22222" d="M7 21q-.825 0-1.412-.587T5 19V6H4V4h5V3h6v1h5v2h-1v13q0 .825-.587 1.413T17 21zm2-4h2V8H9zm4 0h2V8h-2z"/></svg></a>
+                                        </td>
+                                    </tr>
+                                    <% }) %>
+                                </tbody>
+                            </table>
+                            
+                           </div>
+                           <div class=" md:w-[25%]">
+                           
+                            <div class="bg-white p-[15px] rounded-[10px]">
+                                <div>
+                                  
+                                    <div class="mt-[10px]">
+                                        <ul class="px-3">
+                                            <li class="flex justify-between mb-4">
+                                                <h3 class="text-gray-500">Sub- Total</h3>
+                                                <h3 class="font-[600] text-[16px]">£ <%= total %></h3>
+                                            </li>
+                                            <li class="flex justify-between mb-4"> 
+                                                <h3 class="text-gray-500">GST</h3>
+                                                <h3 class="font-[600] text-[16px]">£0.00</h3>
+                                            </li>
+                                            <li class="flex justify-between mb-4"> 
+                                                <h3 class="text-gray-500">Discount</h3>
+                                                <h3 class="font-[600] text-[16px]">£0.00</h3>
+                                            </li>
+                                            <li class="flex justify-between mb-4"> 
+                                                <h3 class="text-gray-500">Delivery Fee</h3>
+                                                <h3 class="font-[600] text-[16px]">£00.00</h3>
+                                            </li>
+                                        </ul>
+                                        <hr>
+                                        <ul class="px-3 mt-[10px]">
+                                            <li class="flex justify-between mb-4"> 
+                                                <h3 class="text-black-600 font-[600]">Total Cost</h3>
+                                                <h3 class="font-[600] text-[18px]">£<%= total %></h3>
+                                            </li>
+                                        </ul>
+                                        <div class="flex gap-[5px] justify-center mt-[20px] mb-[15px] sm:px-[10px] items-center">
+                                             <a href="/delivery-info" class="bg-red-600 text-white p-2 px-[20px] rounded-[30px] w-[100%] text-center">Proccess to Checkout</a>
+                                         </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                     </div>
+                 </div>
+            </div>
+            </div>
+        </section>
+
+        <%- include('includes/footer') %>
+            <%- include('includes/foot') %>
+
+</body>
+
+</html>

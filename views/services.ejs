@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services</title>
+    <style>
+        .container {
+            display: flex;
+        }
+
+        .categories {
+            width: 25%;
+            border-right: 1px solid #ccc;
+            padding: 10px;
+        }
+
+        .services {
+            width: 75%;
+            padding: 10px;
+        }
+
+        .category-item {
+            cursor: pointer;
+            margin: 10px 0;
+        }
+
+        .service-list {
+            display: none; /* Hidden by default */
+        }
+
+        .active-category {
+            font-weight: bold;
+        }
+
+        .visible {
+            display: block; /* Show the services when the category is clicked */
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Left Side: Categories -->
+    <div class="categories">
+        <h2>Categories</h2>
+        <% let categoriesDisplayed = {}; %>
+        <% let defaultCategoryId = null; %>
+        <% categoriesWithServices.forEach(item => { %>
+            <% if (!categoriesDisplayed[item.category_id]) { %>
+                <div class="category-item <%= (defaultCategoryId === null) ? 'active-category' : '' %>" data-category-id="<%= item.category_id %>">
+                    <h3><%= item.category_name %></h3>
+                </div>
+                <% if (defaultCategoryId === null) { %>
+                    <% defaultCategoryId = item.category_id; %>
+                <% } %>
+                <% categoriesDisplayed[item.category_id] = true; %>
+            <% } %>
+        <% }) %>
+    </div>
+
+    <!-- Right Side: Services -->
+    <div class="services">
+        <% currentCategoryId = null; %>
+        <% categoriesWithServices.forEach(item => { %>
+            <% if (currentCategoryId !== item.category_id) { %>
+                <% if (currentCategoryId !== null) { %>
+                    </ul>
+                <% } %>
+                <ul class="service-list <%= (item.category_id === defaultCategoryId) ? 'visible' : '' %>" id="category-<%= item.category_id %>">
+                <% currentCategoryId = item.category_id; %>
+            <% } %>
+
+            <% if (item.service_id) { %>
+                <li>
+                    <h3><%= item.service_name %></h3>
+                    <p><%= item.description %></p>
+                    <p>Price: $<%= item.service_charge %></p>
+                </li>
+            <% } %>
+        <% }) %>
+        </ul>
+    </div>
+</div>
+
+<script>
+    document.querySelectorAll('.category-item').forEach(item => {
+        item.addEventListener('click', function() {
+            document.querySelectorAll('.category-item').forEach(el => el.classList.remove('active-category'));
+            this.classList.add('active-category');
+            document.querySelectorAll('.service-list').forEach(serviceList => serviceList.classList.remove('visible'));
+            const categoryId = this.getAttribute('data-category-id');
+            document.getElementById('category-' + categoryId).classList.add('visible');
+        });
+    });
+    document.querySelector('.category-item.active-category')?.click();
+</script>
+
+</body>
+</html>

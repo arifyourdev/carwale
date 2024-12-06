@@ -1,0 +1,334 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Universal | Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <%- include('includes/head') %>
+</head>
+ 
+<body>
+    <div>
+        <div class="flex">
+            <%- include('includes/side-bar') %>
+
+            <div class="pages">
+                <div>
+                    <%- include('includes/header') %>
+                </div>
+                <!-- Page Content -->
+                 <div class="p-5">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <!-- Users Card -->
+                        <div class="bg-green-400 text-white rounded-lg p-6 flex items-center justify-between">
+                            <div>
+                                <h2 class="text-4xl font-bold">523</h2>
+                                <p class="mt-1 text-lg">Users</p>
+                            </div>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 640 512">
+                                <path fill="white"
+                                    d="M96 128a128 128 0 1 1 256 0a128 128 0 1 1-256 0M0 482.3C0 383.8 79.8 304 178.3 304h91.4c98.5 0 178.3 79.8 178.3 178.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3M609.3 512H471.5c5.4-9.4 8.6-20.3 8.6-32v-8c0-60.7-27.1-115.2-69.8-151.8c2.4-.1 4.7-.2 7.1-.2h61.4c89 0 161.2 72.2 161.2 161.3c0 17-13.8 30.7-30.7 30.7M432 256c-31 0-59-12.6-79.3-32.9c19.7-26.6 31.3-59.5 31.3-95.1c0-26.8-6.6-52.1-18.3-74.3C384.3 40.1 407.2 32 432 32c61.9 0 112 50.1 112 112s-50.1 112-112 112" />
+                            </svg>
+                        </div>
+                        <!-- Projects Card -->
+                        <div class="bg-yellow-400 text-white rounded-lg p-6 flex items-center justify-between">
+                            <div>
+                                <h2 class="text-4xl font-bold">111</h2>
+                                <p class="mt-1 text-lg">Projects</p>
+                            </div>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 256 256">
+                                <path fill="white"
+                                    d="M234.36 170a12 12 0 0 1-4.36 16.37l-96 56a12 12 0 0 1-12.1 0l-96-56a12 12 0 0 1 12.09-20.74l90 52.48L218 165.63a12 12 0 0 1 16.36 4.37M218 117.63l-90 52.48l-89.95-52.48A12 12 0 0 0 26 138.37l96 56a12 12 0 0 0 12.1 0l96-56a12 12 0 0 0-12.1-20.74M20 80a12 12 0 0 1 6-10.37l96-56a12.06 12.06 0 0 1 12.1 0l96 56a12 12 0 0 1 0 20.74l-96 56a12 12 0 0 1-12.1 0l-96-56A12 12 0 0 1 20 80m35.82 0L128 122.11L200.18 80L128 37.89Z" />
+                            </svg>
+                        </div>
+            
+                        <!-- Income Card -->
+                        <div class="bg-blue-500 text-white rounded-lg p-6 flex items-center justify-between">
+                            <div>
+                                <h2 class="text-4xl font-bold">$12K</h2>
+                                <p class="mt-1 text-lg">Income</p>
+                            </div>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24">
+                                <path fill="white"
+                                    d="M18.385 18h-9.77q-.69 0-1.152-.462T7 16.384V3.616q0-.691.463-1.153T8.616 2H15.5L20 6.5v9.885q0 .69-.462 1.153T18.384 18M15 7V3H8.616q-.231 0-.424.192T8 3.616v12.769q0 .23.192.423t.423.192h9.77q.23 0 .423-.192t.192-.424V7zM4.616 22q-.691 0-1.153-.462T3 20.385V8h1v12.385q0 .23.192.423t.423.192H14v1zM8 3v4zv14z" />
+                            </svg>
+                        </div>
+            
+                        <!-- Expenses Card -->
+                        <div class="bg-orange-300 text-white rounded-lg p-6 flex items-center justify-between">
+                            <div>
+                                <h2 class="text-4xl font-bold">$523</h2>
+                                <p class="mt-1 text-lg">Expenses</p>
+                            </div>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 16 16">
+                                <path fill="white" fill-rule="evenodd"
+                                    d="M14 3.5H2a.5.5 0 0 0-.5.5v1h13V4a.5.5 0 0 0-.5-.5M1.5 12V6.5h13V12a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5M2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zm1.75 7.5a.75.75 0 0 0 0 1.5h3.5a.75.75 0 0 0 0-1.5z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                    </div>
+                 </div>
+
+                 <!-- Table -->
+                 <div class=" p-5 mx-auto">
+                    <div class="bg-white shadow-md rounded-lg overflow-hidden">
+                        <div class="overflow-x-auto sm:overflow-visible">
+                            <table class="min-w-full table-auto">
+                                <thead>
+                                    <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+                                        <th class="py-3 px-6 text-left">#</th>
+                                        <th class="py-3 px-6 text-left">Name</th>
+                                        <th class="py-3 px-6 text-left">Amount</th>
+                                        <th class="py-3 px-6 text-left">Status</th>
+                                        <th class="py-3 px-6 text-left">Date</th>
+                                        <th class="py-3 px-6 text-left">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="text-gray-600 text-sm font-light">
+                                    <tr class="border-b border-gray-200 hover:bg-gray-100">
+                                        <td class="py-3 px-6 text-left whitespace-nowrap">1</td>
+                                        <td class="py-3 px-6 text-left">Office Manager</td>
+                                        <td class="py-3 px-6 text-left">$400.00</td>
+                                        <td class="py-3 px-6 text-left">
+                                            <span class="bg-green-200 text-green-600 py-1 px-3 rounded-full text-xs">Paid</span>
+                                        </td>
+                                        <td class="py-3 px-6 text-left">24 March 2018</td>
+                                        <td class="py-3 px-6 text-left">
+                                            <div class="flex item-center justify-start">
+                                                <button class="text-blue-500 hover:text-blue-600 mr-2">
+                                                    <span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                            viewBox="0 0 32 32">
+                                                            <path fill="none" stroke="#4c9a9f" stroke-linecap="round"
+                                                                stroke-linejoin="round" stroke-width="2"
+                                                                d="m30 7l-5-5L5 22l-2 7l7-2Zm-9-1l5 5ZM5 22l5 5Z" />
+                                                        </svg></span>
+                                                </button>
+                                                <button class="text-red-500 hover:text-red-600">
+                                                    <span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                            viewBox="0 0 50 50">
+                                                            <g fill="none" stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2">
+                                                                <path stroke="red"
+                                                                    d="M33.333 14.583v-6.25A2.083 2.083 0 0 0 31.25 6.25h-12.5a2.083 2.083 0 0 0-2.083 2.083v6.25" />
+                                                                <path stroke="red"
+                                                                    d="M8.333 14.583h33.334M37.5 41.667V14.583h-25v27.084a2.083 2.083 0 0 0 2.083 2.083h20.834a2.083 2.083 0 0 0 2.083-2.083" />
+                                                            </g>
+                                                        </svg></span>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr class="border-b border-gray-200 hover:bg-gray-100">
+                                        <td class="py-3 px-6 text-left whitespace-nowrap">2</td>
+                                        <td class="py-3 px-6 text-left">Apex Template</td>
+                                        <td class="py-3 px-6 text-left">$1400.00</td>
+                                        <td class="py-3 px-6 text-left">
+                                            <span
+                                                class="bg-yellow-200 text-yellow-600 py-1 px-3 rounded-full text-xs">Unpaid</span>
+                                        </td>
+                                        <td class="py-3 px-6 text-left">23 March 2018</td>
+                                        <td class="py-3 px-6 text-left">
+                                            <div class="flex item-center justify-start">
+                                                <button class="text-blue-500 hover:text-blue-600 mr-2">
+                                                    <span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                            viewBox="0 0 32 32">
+                                                            <path fill="none" stroke="#4c9a9f" stroke-linecap="round"
+                                                                stroke-linejoin="round" stroke-width="2"
+                                                                d="m30 7l-5-5L5 22l-2 7l7-2Zm-9-1l5 5ZM5 22l5 5Z" />
+                                                        </svg></span>
+                                                </button>
+                                                <button class="text-red-500 hover:text-red-600">
+                                                    <span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                            viewBox="0 0 50 50">
+                                                            <g fill="none" stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2">
+                                                                <path stroke="red"
+                                                                    d="M33.333 14.583v-6.25A2.083 2.083 0 0 0 31.25 6.25h-12.5a2.083 2.083 0 0 0-2.083 2.083v6.25" />
+                                                                <path stroke="red"
+                                                                    d="M8.333 14.583h33.334M37.5 41.667V14.583h-25v27.084a2.083 2.083 0 0 0 2.083 2.083h20.834a2.083 2.083 0 0 0 2.083-2.083" />
+                                                            </g>
+                                                        </svg></span>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr class="border-b border-gray-200 hover:bg-gray-100">
+                                        <td class="py-3 px-6 text-left whitespace-nowrap">3</td>
+                                        <td class="py-3 px-6 text-left">Web Development</td>
+                                        <td class="py-3 px-6 text-left">$12400.00</td>
+                                        <td class="py-3 px-6 text-left">
+                                            <span class="bg-red-200 text-red-600 py-1 px-3 rounded-full text-xs">Unknown</span>
+                                        </td>
+                                        <td class="py-3 px-6 text-left">22 March 2018</td>
+                                        <td class="py-3 px-6 text-left">
+                                            <div class="flex item-center justify-start">
+                                                <button class="text-blue-500 hover:text-blue-600 mr-2">
+                                                    <span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                            viewBox="0 0 32 32">
+                                                            <path fill="none" stroke="#4c9a9f" stroke-linecap="round"
+                                                                stroke-linejoin="round" stroke-width="2"
+                                                                d="m30 7l-5-5L5 22l-2 7l7-2Zm-9-1l5 5ZM5 22l5 5Z" />
+                                                        </svg></span>
+                                                </button>
+                                                <button class="text-red-500 hover:text-red-600">
+                                                    <span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                            viewBox="0 0 50 50">
+                                                            <g fill="none" stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2">
+                                                                <path stroke="red"
+                                                                    d="M33.333 14.583v-6.25A2.083 2.083 0 0 0 31.25 6.25h-12.5a2.083 2.083 0 0 0-2.083 2.083v6.25" />
+                                                                <path stroke="red"
+                                                                    d="M8.333 14.583h33.334M37.5 41.667V14.583h-25v27.084a2.083 2.083 0 0 0 2.083 2.083h20.834a2.083 2.083 0 0 0 2.083-2.083" />
+                                                            </g>
+                                                        </svg></span>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr class="border-b border-gray-200 hover:bg-gray-100">
+                                        <td class="py-3 px-6 text-left whitespace-nowrap">4</td>
+                                        <td class="py-3 px-6 text-left">Web Design</td>
+                                        <td class="py-3 px-6 text-left">$1900.00</td>
+                                        <td class="py-3 px-6 text-left">
+                                            <span class="bg-blue-200 text-blue-600 py-1 px-3 rounded-full text-xs">In
+                                                Process</span>
+                                        </td>
+                                        <td class="py-3 px-6 text-left">16 March 2018</td>
+                                        <td class="py-3 px-6 text-left">
+                                            <div class="flex item-center justify-start">
+                                                <button class="text-blue-500 hover:text-blue-600 mr-2">
+                                                    <span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                            viewBox="0 0 32 32">
+                                                            <path fill="none" stroke="#4c9a9f" stroke-linecap="round"
+                                                                stroke-linejoin="round" stroke-width="2"
+                                                                d="m30 7l-5-5L5 22l-2 7l7-2Zm-9-1l5 5ZM5 22l5 5Z" />
+                                                        </svg></span>
+                                                </button>
+                                                <button class="text-red-500 hover:text-red-600">
+                                                    <span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                            viewBox="0 0 50 50">
+                                                            <g fill="none" stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2">
+                                                                <path stroke="red"
+                                                                    d="M33.333 14.583v-6.25A2.083 2.083 0 0 0 31.25 6.25h-12.5a2.083 2.083 0 0 0-2.083 2.083v6.25" />
+                                                                <path stroke="red"
+                                                                    d="M8.333 14.583h33.334M37.5 41.667V14.583h-25v27.084a2.083 2.083 0 0 0 2.083 2.083h20.834a2.083 2.083 0 0 0 2.083-2.083" />
+                                                            </g>
+                                                        </svg></span>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr class="border-b border-gray-200 hover:bg-gray-100">
+                                        <td class="py-3 px-6 text-left whitespace-nowrap">5</td>
+                                        <td class="py-3 px-6 text-left">Klinikal Theme</td>
+                                        <td class="py-3 px-6 text-left">$2100.00</td>
+                                        <td class="py-3 px-6 text-left">
+                                            <span
+                                                class="bg-gray-200 text-gray-600 py-1 px-3 rounded-full text-xs">Pending</span>
+                                        </td>
+                                        <td class="py-3 px-6 text-left">11 March 2018</td>
+                                        <td class="py-3 px-6 text-left">
+                                            <div class="flex item-center justify-start">
+                                                <button class="text-blue-500 hover:text-blue-600 mr-2">
+                                                    <span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                            viewBox="0 0 32 32">
+                                                            <path fill="none" stroke="#4c9a9f" stroke-linecap="round"
+                                                                stroke-linejoin="round" stroke-width="2"
+                                                                d="m30 7l-5-5L5 22l-2 7l7-2Zm-9-1l5 5ZM5 22l5 5Z" />
+                                                        </svg></span>
+                                                </button>
+                                                <button class="text-red-500 hover:text-red-600">
+                                                    <span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                            viewBox="0 0 50 50">
+                                                            <g fill="none" stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2">
+                                                                <path stroke="red"
+                                                                    d="M33.333 14.583v-6.25A2.083 2.083 0 0 0 31.25 6.25h-12.5a2.083 2.083 0 0 0-2.083 2.083v6.25" />
+                                                                <path stroke="red"
+                                                                    d="M8.333 14.583h33.334M37.5 41.667V14.583h-25v27.084a2.083 2.083 0 0 0 2.083 2.083h20.834a2.083 2.083 0 0 0 2.083-2.083" />
+                                                            </g>
+                                                        </svg></span>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr class="border-b border-gray-200 hover:bg-gray-100">
+                                        <td class="py-3 px-6 text-left whitespace-nowrap">6</td>
+                                        <td class="py-3 px-6 text-left">Klinik Template</td>
+                                        <td class="py-3 px-6 text-left">$400.00</td>
+                                        <td class="py-3 px-6 text-left">
+                                            <span class="bg-green-200 text-green-600 py-1 px-3 rounded-full text-xs">Paid</span>
+                                        </td>
+                                        <td class="py-3 px-6 text-left">10 March 2018</td>
+                                        <td class="py-3 px-6 text-left">
+                                            <div class="flex item-center justify-start">
+                                                <button class="text-blue-500 hover:text-blue-600 mr-2">
+                                                    <span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                            viewBox="0 0 32 32">
+                                                            <path fill="none" stroke="#4c9a9f" stroke-linecap="round"
+                                                                stroke-linejoin="round" stroke-width="2"
+                                                                d="m30 7l-5-5L5 22l-2 7l7-2Zm-9-1l5 5ZM5 22l5 5Z" />
+                                                        </svg></span>
+                                                </button>
+                                                <button class="text-red-500 hover:text-red-600">
+                                                    <span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                            viewBox="0 0 50 50">
+                                                            <g fill="none" stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2">
+                                                                <path stroke="red"
+                                                                    d="M33.333 14.583v-6.25A2.083 2.083 0 0 0 31.25 6.25h-12.5a2.083 2.083 0 0 0-2.083 2.083v6.25" />
+                                                                <path stroke="red"
+                                                                    d="M8.333 14.583h33.334M37.5 41.667V14.583h-25v27.084a2.083 2.083 0 0 0 2.083 2.083h20.834a2.083 2.083 0 0 0 2.083-2.083" />
+                                                            </g>
+                                                        </svg></span>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr class="border-b border-gray-200 hover:bg-gray-100">
+                                        <td class="py-3 px-6 text-left whitespace-nowrap">7</td>
+                                        <td class="py-3 px-6 text-left">Logo Design</td>
+                                        <td class="py-3 px-6 text-left">$600.00</td>
+                                        <td class="py-3 px-6 text-left">
+                                            <span class="bg-yellow-200 text-yellow-600 py-1 px-3 rounded-full text-xs">Partially
+                                                Paid</span>
+                                        </td>
+                                        <td class="py-3 px-6 text-left">10 March 2018</td>
+                                        <td class="py-3 px-6 text-left">
+                                            <div class="flex item-center justify-start">
+                                                <button class="text-blue-500 hover:text-blue-600 mr-2">
+                                                    <span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                            viewBox="0 0 32 32">
+                                                            <path fill="none" stroke="#4c9a9f" stroke-linecap="round"
+                                                                stroke-linejoin="round" stroke-width="2"
+                                                                d="m30 7l-5-5L5 22l-2 7l7-2Zm-9-1l5 5ZM5 22l5 5Z" />
+                                                        </svg></span>
+                                                </button>
+                                                <button class="text-red-500 hover:text-red-600">
+                                                    <span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                            viewBox="0 0 50 50">
+                                                            <g fill="none" stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2">
+                                                                <path stroke="red"
+                                                                    d="M33.333 14.583v-6.25A2.083 2.083 0 0 0 31.25 6.25h-12.5a2.083 2.083 0 0 0-2.083 2.083v6.25" />
+                                                                <path stroke="red"
+                                                                    d="M8.333 14.583h33.334M37.5 41.667V14.583h-25v27.084a2.083 2.083 0 0 0 2.083 2.083h20.834a2.083 2.083 0 0 0 2.083-2.083" />
+                                                            </g>
+                                                        </svg></span>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

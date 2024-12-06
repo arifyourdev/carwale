@@ -1,0 +1,66 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Universal | Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <%- include('includes/head') %>
+</head>
+
+<body>
+    <div>
+        <div class="flex">
+            <%- include('includes/side-bar') %>
+
+                <div class="pages">
+                    <div>
+                        <%- include('includes/header') %>
+                    </div>
+                    <!-- Page Content -->
+                    <div class="p-5 mt-5">
+                        <div>
+                            <div class="flex items-center justify-between">
+                                <h3 class="text-2xl font-bold">Manufacture List</h3>
+                                <div>
+                                    <a href="/admin/add-manufacture" class="p-3 pl-3 bg-sky-400 rounded-[10px] text-white">Add Manufacture</a>
+                                </div>
+                            </div>
+                            <div class="mt-8">
+                                <div>
+                                    <table class="w-[100%]">
+                                        <thead class="bg-gray-100  border-b-[2px]">
+                                            <tr>
+                                                <th class="p-3 text-left">Sr.No</th>
+                                                <th class="p-3 text-left">Name</th>
+                                                <th class="p-3 text-left">Status</th>
+                                                <th class="p-3 text-left">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>      
+                                            <tbody>
+                                                <% ManuData.forEach((data, index) => { %>          
+                                                <tr class="shadow">
+                                                    <td class="p-3 px-3"><%= index + 1 %></td>
+                                                    <td class="p-3 px-3"><%= data.name %></td>  
+                                                    <td class="p-3 px-3"><%= data.status == 1 ? 'Active' : 'Inactive' %></td>
+                                                    <td class="p-3 px-3 flex">
+                                                        <a href=""><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"><path fill="#f41010" d="M7 21q-.825 0-1.412-.587T5 19V6H4V4h5V3h6v1h5v2h-1v13q0 .825-.587 1.413T17 21zm2-4h2V8H9zm4 0h2V8h-2z"/></svg></a>
+                                                        <a href=""><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"><g fill="none" stroke="#45a16d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M7 7H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2v-1"/><path d="M20.385 6.585a2.1 2.1 0 0 0-2.97-2.97L9 12v3h3zM16 5l3 3"/></g></svg></a>
+                                                    </td>
+                                                </tr>
+                                                <% }) %>
+                                            </tbody>
+                                            
+                                         </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,167 @@
+<html lang="en"></html>
+
+<head>
+    <base href="<%= baseURL %>">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Universal | Edit Engine</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <%- include('includes/head') %>
+</head>
+ 
+<body>
+    <div>
+        <div class="flex">
+            <%- include('includes/side-bar') %>
+
+            <div class="pages">
+                <div>
+                    <%- include('includes/header') %>
+                </div>
+                <!-- Page Content -->
+                 <div class="p-5">
+                     <div>
+                         <div class="">
+                            <h3 class="text-2xl font-bold">Edit Engine Data</h3>
+                         </div>
+                         <div class="mt-4">
+                              <form method="post" action="/admin/edit-engine">
+                                <div class="flex gap-5">
+                                    <div class="sm:w-[50%]">
+                                        <div>
+                                            <label class="font[600]">Manufacture Name</label>
+                                            <select name="manufacturer" id="selectMenuFecture" class="p-2 border-[1px] rounded-[10px] w-[100%] mt-2 outline-none" required>
+                                                <option value="">Select</option>
+                                                <% manufacture_data.forEach((data) => { %> 
+                                                    <option value="<%= data.name %>" data-menu_id="<%= data.id %>" 
+                                                        <% if (data.name === edit_data.manufacturer) { %> 
+                                                            selected 
+                                                        <% } %>>
+                                                        <%= data.name %>
+                                                    </option>
+                                                <% }) %>
+                                            </select>
+                                            
+                                         </div>
+                                    </div>
+                                    <div class="sm:w-[50%]">
+                                        <div>
+                                            <label class="font[600]">Modal</label>
+                                            <select name="c_modal" id="" class="p-2 border-[1px] rounded-[10px] w-[100%] mt-2 outline-none" required>
+                                               <option value="">Select</option>
+                                               <% car_modal.forEach((data) =>{  %> 
+                                                <option value="<%= data.modal_name %>" <% if (data.modal_name === edit_data.c_modal) { %> selected  <% } %> data-menufecture="<%= data.manufacturer_id %>"><%= data.modal_name %></option>
+                                               <% }) %>
+                                            </select>
+                                         </div>
+                                    </div>
+                                    <div class="sm:w-[50%]">
+                                        <div>
+                                            <label class="font[600]">Generation</label>
+                                            <select name="c_gen" id="" class="p-2 border-[1px] rounded-[10px] w-[100%] mt-2 outline-none" required>
+                                                 <option value="">Select</option>
+                                                 <option value="xyx">Xyz</option>
+                                                 <option value="xyx2">Xyz2</option>
+                                                 <option value="xyx3">Xyz3</option>
+                                             </select>
+                                         </div>
+                                    </div>
+                                 </div>
+                                 <div class="flex gap-5 mt-5">
+                                    <div class="sm:w-[50%]">
+                                        <div>
+                                            <label class="font-[600]">Engine Name</label>
+                                            <input type="text" name="engine_name" value="<%= edit_data.engine_name %>" class="p-2 border-[1px] rounded-[10px] w-[100%] mt-2 outline-none" required>
+                                        </div>
+                                    </div>
+                                    <div class="sm:w-[50%]">
+                                        <div>
+                                            <label class="font[600]">Seo Url</label>
+                                            <input type="text" name="seo_url" value="<%= edit_data.seo_url %>" class="p-2 border-[1px] rounded-[10px] w-[100%] mt-2 outline-none" required>
+                                         </div>
+                                    </div>
+                                 </div>
+                                <div class="flex gap-5 mt-5">
+                                     <div class="sm:w-[100%]">
+                                        <div>
+                                            <label class="font-[600]">Description</label>
+                                            <textarea type="text" name="description"   class="p-2 border-[1px] rounded-[10px] w-[100%] mt-2 outline-none" cols="4" rows="5">
+                                                <%= edit_data.description %>
+                                            </textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex gap-5 mt-5">
+                                    <div class="sm:w-[50%]">
+                                        <div>
+                                            <label class="font[600]">Price</label>
+                                            <input type="text" name="price" id="price" value="<%= edit_data.price %>" class="p-2 border-[1px] rounded-[10px] w-[100%] mt-2 outline-none" required>
+                                         </div>
+                                    </div>
+                                    <div class="sm:w-[50%]">
+                                        <div>
+                                            <label class="font-[600]">Discount</label>
+                                            <input type="text" name="discount" id="discount" value="<%= edit_data.discount %>" class="p-2 border-[1px] rounded-[10px] w-[100%] mt-2 outline-none" required>
+                                        </div>
+                                    </div>
+                                    <div class="sm:w-[50%]">
+                                        <div>
+                                            <label class="font-[600]">Main Price</label>
+                                            <input type="text" name="main_price" id="mainPrice" value="<%= edit_data.main_price %>" class="p-2 border-[1px] rounded-[10px] w-[100%] mt-2 outline-none" required>
+                                        </div>
+                                    </div>
+                                    <div class="sm:w-[50%]">
+                                        <div>
+                                            <label class="font-[600]">Image</label>
+                                            <input type="text" name="main_image_path" value="<%= edit_data.main_image_path %>" class="p-2 border-[1px] rounded-[10px] w-[100%] mt-2 outline-none" required>
+                                            <div>
+                                                <img src="<%= edit_data.main_image_path %>" class="w-[80px]" alt="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <input type="hidden" name="id" value="<%= edit_data.id %>"> 
+                                 <div class="mt-5">
+                                    <button type="submit" class="p-2 bg-sky-400 text-white px-10 rounded-[10px]">Update</button>
+                                </div>
+                              </form>
+                         </div>
+                     </div>
+                 </div>
+            </div>
+        </div>
+    </div>
+    <%- include('includes/foot') %>
+    <script>
+        var price = document.getElementById("price")
+        var discount = document.getElementById("discount")
+        var mainPrice = document.getElementById("mainPrice")
+        price.addEventListener('input',updatePrice)
+        discount.addEventListener('input',updatePrice)
+   
+       function updatePrice(){
+           var priceVal = parseFloat(price.value) || 0
+           var discountVal = parseFloat(discount.value) || 0
+           var discountPrice = (priceVal * discountVal) / 100;
+           var finalPrice = priceVal - discountPrice
+           mainPrice.value = parseFloat(finalPrice)
+        }
+        
+      </script>
+    <script>
+      $(document).on("change", "#selectMenuFecture",function(){
+        // var menufecture = $(this).val()
+        var menu_id = $(this).find(':selected').data('menu_id');
+       
+        $('select[name="c_modal"] option').each(function() {
+                if ($(this).val() != "") {
+                    $(this).hide();
+                }
+            });
+
+        $('select[name="c_modal"] option[data-menufecture="' + menu_id + '"]').show();
+    
+      })
+    </script>
+</body>
+</html>

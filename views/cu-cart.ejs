@@ -1,0 +1,223 @@
+<html lang="en">
+
+</html>
+
+</html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Universal - Cart</title>
+
+    <%- include('includes/head') %>
+        <!-- Tailwind Css -->
+</head>
+
+<body class="bg-gray-100">
+
+    <div id="notification" class="fixed right-5 top-5 text-white bg-green-600 rounded-[5px] z-50 p-2 px-3" style="display:none; ">dsadsaf</div>
+    
+    <!--------------------------------- Main Header Section -------------------------------->
+
+    <%- include('includes/header') %>
+
+        <section class="md:p-10 pt-5">
+            <div class="xl:w-[1280px] m-auto">
+                <div class="md:flex block justify-center gap-10 mx-2">
+                    <div class="md:w-[100%]">
+                        <div class="">
+                            <h3 class="text-2xl font-bold">My Cart</h3>
+                        </div>
+                        <div class=" mt-[25px] rounded-[10px] flex gap-4">
+                            <div class="sm:w-[65%]">
+                                <% var total=0 %>
+                                    <% cartData.forEach(item=> { %>
+                                        <% total +=(item.product_price * item.quantity); %>
+                                            <div
+                                                class="bg-white p-3 mb-3 flex justify-between rounded-[10px] item-container">
+                                                <div class="flex  items-center gap-3">
+                                                    <img src="<%= item.product_image %>" class="w-[100px] border-[1px]"
+                                                        alt="<%= item.product_name %>">
+                                                    <div>
+                                                        <h2>
+                                                            <%= item.product_name %>
+                                                        </h2>
+                                                        <p class="font-[600] mt-3"> £<%= item.product_price %>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="flex  items-center justify-between flex-col">
+                                                    <div>
+                                                        <a href="" class="remove-item"
+                                                            data-product-id="<%= item.product_id %>" title="remove">
+                                                            <span><svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                                                    height="24" viewBox="0 0 24 24">
+                                                                    <path fill="#a59c9c"
+                                                                        d="M7 21q-.825 0-1.412-.587T5 19V6H4V4h5V3h6v1h5v2h-1v13q0 .825-.587 1.413T17 21zM17 6H7v13h10zM9 17h2V8H9zm4 0h2V8h-2zM7 6v13z" />
+                                                                </svg></span>
+                                                        </a>
+                                                    </div>
+                                                    <div
+                                                        class="border-[1px] border-red-500 flex justify-between p-[3px] items-center rounded-[5px] cursor-pointer w-[80px] text-center">
+                                                        <span class="decrease font-[700] text-[20px] w-[35%]"
+                                                            data-product-id="<%= item.product_id %>">-</span>
+                                                        <span class="quantity w-[30%]"
+                                                            data-product-id="<%= item.product_id %>">
+                                                            <%= parseInt(item.quantity) %>
+                                                        </span>
+                                                        <span class="increase font-[700] text-[20px] w-[35%]"
+                                                            data-product-id="<%= item.product_id %>">+</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <% }) %>
+                              </div>
+                              <div class=" md:w-[25%]">
+
+                                <div class="bg-white p-[15px] rounded-[10px]">
+                                    <div>
+
+                                        <div class="mt-[10px]">
+                                            <ul class="px-3">
+                                                <li class="flex justify-between mb-4">
+                                                    <h3 class="text-gray-500">Sub- Total</h3>
+                                                    <h3 class="font-[600] text-[16px] total-cost">£ <%= total.toFixed(2)
+                                                            %>
+                                                    </h3>
+                                                </li>
+                                                <li class="flex justify-between mb-4">
+                                                    <h3 class="text-gray-500">GST</h3>
+                                                    <h3 class="font-[600] text-[16px]">£0.00</h3>
+                                                </li>
+                                                <li class="flex justify-between mb-4">
+                                                    <h3 class="text-gray-500">Discount</h3>
+                                                    <h3 class="font-[600] text-[16px]">£0.00</h3>
+                                                </li>
+                                                <li class="flex justify-between mb-4">
+                                                    <h3 class="text-gray-500">Delivery Fee</h3>
+                                                    <h3 class="font-[600] text-[16px]">£00.00</h3>
+                                                </li>
+                                            </ul>
+                                            <hr>
+                                            <ul class="px-3 mt-[10px]">
+                                                <li class="flex justify-between mb-4">
+                                                    <h3 class="text-black-600 font-[600]">Total Cost</h3>
+                                                    <h3 class="font-[600] text-[18px] subtotal-cost">£ <%=
+                                                            total.toFixed(2) %>
+                                                    </h3>
+                                                </li>
+                                            </ul>
+                                            <div
+                                                class="flex gap-[5px] justify-center mt-[20px] mb-[15px] sm:px-[10px] items-center">
+                                                <a href="/delivery-info"
+                                                    class="bg-red-600 text-white p-2 px-[20px] rounded-[30px] w-[100%] text-center">Proccess
+                                                    to Checkout</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </section>
+
+        <%- include('includes/footer') %>
+            <%- include('includes/foot') %>
+                <script>
+                    document.querySelectorAll('.increase').forEach(button => {
+                        button.addEventListener('click', function () {
+                            const productId = this.getAttribute('data-product-id');
+                            updateCartQuantity(productId, 'increase');
+                        });
+                    });
+
+                    document.querySelectorAll('.decrease').forEach(button => {
+                        button.addEventListener('click', function () {
+                            const productId = this.getAttribute('data-product-id');
+                            updateCartQuantity(productId, 'decrease');
+                        });
+                    });
+
+                    function updateCartQuantity(productId, action) {
+                        fetch('/update-cart-quantity', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({ product_id: productId, action: action })
+                        })
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.success) {
+                                    const quantityElement = document.querySelector(`.quantity[data-product-id="${productId}"]`);
+                                    quantityElement.textContent = data.newQuantity;
+
+                                    const totalCostElement = document.querySelector('.total-cost');
+                                    totalCostElement.textContent = `£${data.totalCost.toFixed(2)}`;
+
+                                    const subtotalCostElement = document.querySelector('.subtotal-cost');
+                                    subtotalCostElement.textContent = `£${data.totalCost.toFixed(2)}`;
+
+                                } else {
+                                    alert('Failed to update quantity.');
+                                }
+                            })
+                            .catch(error => {
+                                console.error('Error:', error);
+                            });
+                    }
+                </script>
+                <script>
+                    document.querySelectorAll('.remove-item').forEach(button => {
+                        button.addEventListener('click', function (e) {
+                            e.preventDefault();
+                            const productId = this.getAttribute('data-product-id');
+
+                            fetch(`/remove-item/${productId}`, {
+                                method: 'DELETE',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                }
+                            })
+                                .then(response => response.json())
+                                .then(data => {
+                                    const notification = document.getElementById('notification');
+                                    if (data.success) {
+                                         notification.innerText = data.message;
+                                        notification.style.display = 'block'; 
+                                        this.closest('.item-container').remove();
+                                        updateCartCount();
+                                      
+                                        setTimeout(() => {
+                                            notification.style.display = 'none';
+                                              window.location.href ="/cu-cart"
+                                        }, 2000);
+                                      
+                                    } else {
+                                        notification.innerText = data.message;
+                                        notification.style.display = 'block';
+                                        setTimeout(() => {
+                                            notification.style.display = 'none';
+                                             window.location.href ="/cu-cart"
+                                        }, 2000);
+                                    }
+                                })
+                                .catch(error => console.error('Error:', error));
+                        });
+                    });
+
+                    function updateCartCount() {
+                        const cartItems = document.querySelectorAll('.item-container');
+                        document.getElementById('cart-count').innerText = cartItems.length;
+                    }
+
+                </script>
+
+  </script>
+
+</body>
+
+</html>

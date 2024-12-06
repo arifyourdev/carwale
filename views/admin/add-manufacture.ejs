@@ -1,0 +1,54 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Universal | Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <%- include('includes/head') %>
+</head>
+ 
+<body>
+    <div>
+        <div class="flex">
+            <%- include('includes/side-bar') %>
+
+            <div class="pages">
+                <div>
+                    <%- include('includes/header') %>
+                </div>
+                <!-- Page Content -->
+                 <div class="p-5">
+                     <div>
+                         <div class="">
+                            <h3 class="text-2xl font-bold">Add Manufacture</h3>
+                         </div>
+                         <div class="mt-4">
+                              <form method="post" action="/admin/add-manufacture">
+                                <div class="flex gap-5">
+                                    <div class="sm:w-[50%]">
+                                        <div>
+                                            <label class="font[600]">Manufacture Name</label>
+                                            <input type="text" name="name" class="p-2 border-[1px] rounded-[10px] w-[100%] mt-2 outline-none" required>
+                                        </div>
+                                    </div>
+                                    <div class="sm:w-[50%]">
+                                        <div>
+                                            <label class="font-[600]">Status</label>
+                                            <input type="text" name="status" class="p-2 border-[1px] rounded-[10px] w-[100%] mt-2 outline-none" value="1">
+                                        </div>
+                                    </div>
+                                </div>
+                                 <div class="mt-5">
+                                    <button type="submit" class="p-2 bg-sky-400 text-white px-10 rounded-[10px]">Submit</button>
+                                </div>
+                              </form>
+                         </div>
+                     </div>
+                 </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

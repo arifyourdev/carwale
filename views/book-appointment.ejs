@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book an Appointment</title>
+    <link rel="stylesheet" href="assets/css/Theme.css">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body>
+    <div class="container mx-auto p-4">
+        <h1 class="text-3xl font-bold mb-4">Book Your Appointment</h1>
+
+        <!-- Step 1: Car Registration Number and Postal Code -->
+        <div id="step-1">
+            <label for="carRegNo" class="block mb-2">Car Registration Number:</label>
+            <input type="text" id="carRegNo" class="w-full p-2 mb-4 border" placeholder="Enter your car reg no">
+
+            <label for="postalCode" class="block mb-2">Postal Code:</label>
+            <input type="text" id="postalCode" class="w-full p-2 mb-4 border" placeholder="Enter your postal code">
+
+            <button onclick="showServiceStep()" class="bg-blue-500 text-white py-2 px-4 rounded">Next</button>
+        </div>
+
+        <!-- Step 2: Select Service -->
+        <div id="step-2" class="hidden">
+            <label for="service" class="block mb-2">Select Service:</label>
+            <select id="service" class="w-full p-2 mb-4 border">
+                <option value="service1">Service 1</option>
+                <option value="service2">Service 2</option>
+                <option value="service3">Service 3</option>
+            </select>
+
+            <label for="appointmentDate" class="block mb-2">Select Appointment Date:</label>
+            <input type="date" id="appointmentDate" class="w-full p-2 mb-4 border">
+
+            <button onclick="getAvailableSlots()" class="bg-blue-500 text-white py-2 px-4 rounded">Get Available
+                Slots</button>
+        </div>
+
+        <!-- Step 3: Select Time Slot -->
+        <div id="step-3" class="hidden">
+            <div id="availableSlots" class="grid grid-cols-4 gap-4 mb-4">
+                <!-- Available slots will be appended here -->
+            </div>
+            <button onclick="bookAppointment()" class="bg-green-500 text-white py-2 px-4 rounded">Book
+                Appointment</button>
+        </div>
+    </div>
+
+    <!-- JavaScript to handle form steps and backend calls -->
+    <script>
+        function showServiceStep() {
+            document.getElementById('step-1').classList.add('hidden');
+            document.getElementById('step-2').classList.remove('hidden');
+        }
+        function getAvailableSlots() {
+            const date = document.getElementById('appointmentDate').value;
+            const service = document.getElementById('service').value;
+
+            fetch(`/book-appointment/get-slots?date=${date}&service=${service}`)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('step-2').classList.add('hidden');
+                    document.getElementById('step-3').classList.remove('hidden');
+
+                    const slotsContainer = document.getElementById('availableSlots');
+                    slotsContainer.innerHTML = '';
+
+                    data.slots.forEach(slot => {
+                        const slotButton = document.createElement('button');
+                        slotButton.className = 'bg-gray-200 p-2 rounded';
+                        slotButton.textContent = slot.time;
+                        slotButton.setAttribute('data-id', slot.id);
+                        slotButton.onclick = () => selectSlot(slot.id);
+                        slotsContainer.appendChild(slotButton);
+                    });
+                });
+        }
+
+        function selectSlot(slotId) {
+            document.querySelectorAll('#availableSlots button').forEach(button => {
+                button.classList.remove('bg-blue-500', 'text-white');
+                button.classList.add('bg-gray-200');
+            });
+
+            const selectedButton = document.querySelector(`#availableSlots button[data-id="${slotId}"]`);
+            selectedButton.classList.add('bg-blue-500', 'text-white');
+
+            // Store selected slot ID for later booking
+            document.getElementById('step-3').dataset.selectedSlotId = slotId;
+        }
+
+
+        function bookAppointment() {
+            const carRegNo = document.getElementById('carRegNo').value;
+            const postalCode = document.getElementById('postalCode').value;
+            const service = document.getElementById('service').value;
+            const date = document.getElementById('appointmentDate').value;
+            const slotId = document.getElementById('step-3').dataset.selectedSlotId;
+
+            fetch('/book-appointment', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ carRegNo, postalCode, service, date, slotId })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Appointment booked successfully!');
+                        window.location.href = '/booked-appointments';  
+                    } else {
+                        alert('Failed to book appointment. Please try again.');
+                    }
+                });
+        }
+    </script>
+</body>
+
+</html>

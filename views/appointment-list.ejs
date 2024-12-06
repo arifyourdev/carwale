@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointment List</title>
+    <link rel="stylesheet" href="/path-to-your-css/styles.css">
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row"> <button style="padding: 6px; background-color: aquamarine; color: black; font-size: 30px;"> <a href="/book-appointment"> New Appointment</a></button></div>
+        <h1>Booked Appointments</h1>
+        <table id="appointmentTable" class="display">
+            <thead>
+                <tr>
+                    <th>Appointment Date</th>
+                    <th>Appointment Time</th> 
+                    <th>Created At</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% if (appointments.length > 0) { %>
+                    <% appointments.forEach(appointment => { %>
+                        <tr>
+                            <td><%= appointment.appointment_date %></td>
+                            <td><%= appointment.appointment_time %></td> 
+                            <td><%= appointment.created_at %></td>
+                        </tr>
+                    <% }) %>
+                <% } else { %>
+                    <tr>
+                        <td colspan="5">No appointments found.</td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <!-- Initialize DataTables -->
+    <script>
+        $(document).ready(function() {
+            $('#appointmentTable').DataTable({
+                "paging": true,
+                "searching": true,
+                "ordering": true,
+                "order": [[ 0, "desc" ]] // Default sorting on the first column (Appointment Date)
+            });
+        });
+    </script>
+</body>
+</html>

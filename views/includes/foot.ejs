@@ -1,0 +1,22 @@
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script> 
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="assets/js/main.js"></script>
+<script src="assets/js/ap.js"></script>
+<script src="assets/js/apis.js"></script>
+<script src="assets/js/engineApi.js"></script>
+<script src="assets/js/carApi.js"></script>
+<script src="assets/js/cart.js"></script>
+<script src="assets/js/login.js"></script>
+<script>
+    // Navigation
+document.addEventListener("DOMContentLoaded", function() {
+    const links = document.querySelectorAll('.nav-link');
+    const currentPath = window.location.pathname;
+    links.forEach(link => {
+        if (link.getAttribute('href') === currentPath) {
+            link.classList.add('active');
+        }
+    });
+});
+</script>

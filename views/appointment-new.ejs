@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Appoinment | Car Universal</title>
+    <%- include('includes/head') %>
+</head>
+<style>
+    .feature-tabs ul li {
+        width: 190px;
+        border-radius: 10px;
+        padding-left: 10px;
+        cursor: pointer;
+    }
+
+    .feature-tabs {
+        margin-right: 20px;
+    }
+
+    .category-item.active-category {
+        background-color: #000;
+        color: #fff;
+    }
+
+    .service-list {
+        display: none;
+    }
+
+    .visible {
+        display: block;
+    }
+
+    .service-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin: 0 0 15px;
+    }
+
+    .service.selected {
+        border-color: #c32026;
+    }
+
+    .service.selected svg {
+        display: block;
+    }
+
+    .service svg {
+        display: none;
+    }
+</style>
+
+<body class="bg-slate-100">
+    <!--------------------------------- Main Header -------------------------------->
+    <div class="w-full flex justify-center bg-white border-b p-2 px-24">
+        <div class="w-full max-w-screen-xl flex justify-between items-center relative">
+            <button
+                class="p-3 px-5 absolute inline-flex items-center top-full mt-5 bg-black text-white rounded-full slide-back">
+                <span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 1024 1024">
+                        <path fill="currentColor" d="M224 480h640a32 32 0 1 1 0 64H224a32 32 0 0 1 0-64" />
+                        <path fill="currentColor"
+                            d="m237.248 512l265.408 265.344a32 32 0 0 1-45.312 45.312l-288-288a32 32 0 0 1 0-45.312l288-288a32 32 0 1 1 45.312 45.312z" />
+                    </svg>
+                </span>
+                <span class="ml-2">
+                    Back
+                </span>
+            </button>
+            <div><a href="/"><img src="assets/images/logo.png" alt=""></a></div>
+            <div><a href="/" class="p-3 px-5 border border-red-600 rounded-full font-semibold">Need Help</a></div>
+        </div>
+    </div>
+
+
+    <!--------------------------------- Cart Slides -------------------------------->
+    <div class="flex overflow-x-hidden all-steps">
+ <style>
+        .app-tab-content{
+            display: none;
+            
+        }
+        .app-tab-content.current{
+            display: block;
+         }
+         .app-tabs li.current{
+            background: #000;
+            color: #fff;
+         }
+ </style>
+        <!--------------------------------- Choose An Option -------------------------------->
+        <div
+            class="min-w-full flex justify-center sm:p-24 mt-20 sm:mt-0 bg-gray-100 h-full steps transition-super-fast-move">
+            <div class="w-full max-w-screen-xl sm:flex items-center justify-center">
+                <div class="border sm:w-3/4 mx-2 md:mx-0 sm:flex justify-center items-center">
+                    <div class="sm:w-3/5">
+                        <div class="w-full sm:flex justify-center p-8">
+                            <h2 class="sm:text-2xl text-2xl font-semibold whitespace-nowrap text-center">Tell Us About
+                                Your Car</h2>
+                        </div>
+                        <div class="w-full p-8 border bg-white rounded-2xl">
+                            <div>
+                                <ul class="flex gap-4 justify-center app-tabs">
+                                    <li class="current  cursor-pointer p-2 px-10 rounded-[8px]"
+                                        data-apptab="tab-1">Use Number Plate</li>
+                                    <li class=" cursor-pointer  p-2 px-10 rounded-[8px]"
+                                        data-apptab="tab-2">Use car Details</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <div id="tab-1"  class="app-tab-content current p-6">
+                                    <form action="/get-services" method="GET">
+                                        <div>
+                                            <div class="relative">
+                                                <input type="text" name="register_number" class="p-3 border-[1px] border-gray-200 px-[5px] w-[100%] outline-none pl-10 rounded-[8px]" placeholder="Your Registration Number">
+                                                <span class="absolute top-4 left-3"><img src="https://res.cloudinary.com/dvzfuapyy/image/upload/v1727449311/Vector_masryy.png" alt=""></span>
+                                            </div>  
+                                            <div class="relative mt-5">
+                                                <input type="text" name="postcode" class="p-3 border-[1px] border-gray-200 px-[5px] w-[100%] outline-none pl-10 rounded-[8px]" placeholder="Your Registration Number">
+                                                <span class="absolute top-4 left-3"><img src="https://res.cloudinary.com/dvzfuapyy/image/upload/v1727449355/Vector_g0858s.png" alt=""></span>
+                                            </div>  
+                                            <div class="mt-8">
+                                                <button type="submit" id="nextButton"
+                                                    class="w-[100%] bg-red-600 p-3 text-white text-[18px] rounded-[10px]">Next</button>
+                                            </div>
+
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="p-6 rounded-xl app-tab-content" id="tab-2">
+                                    <form action="/get-services" method="GET">
+                                        <div>
+                                            <div>
+                                                <select name="manufacturer" id="manufacturerSelect"
+                                                    class="p-3 border-[1px] border-gray-200 px-[5px] w-[100%]" required>
+                                                    <option value="">Choose Manufacturer</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="mt-5">
+                                                <select name="car_model" id="modalSelect"
+                                                    class="p-3 border-[1px] border-gray-200 px-[5px] w-[100%]" required>
+                                                    <option value="">Select Model</option>
+                                                </select>
+                                            </div>
+                                            <div class="mt-5">
+                                                <select name="generation" id="generationSelect"
+                                                    class="p-3 border-[1px] border-gray-200 px-[5px] w-[100%]" required>
+                                                    <option value="">Select Generation</option>
+                                                    <option value="1962-1973">1962-1973</option>
+                                                </select>
+                                            </div>
+                                            <div class="mt-5">
+                                                <select name="others" id="othersSelect"
+                                                    class="p-3 border-[1px] border-gray-200 px-[5px] w-[100%]">
+                                                    <option value="">Others</option>
+                                                    <option value="Others">Others</option>
+                                                </select>
+                                            </div>
+                                            <div class="mt-5">
+                                                <button type="submit" id="nextButton"
+                                                    class="w-[100%] bg-red-600 p-3 text-white text-[18px] rounded-[10px]">Next</button>
+                                            </div>
+
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!--------------------------------- End -------------------------------->
+    </div>
+    <%- include('includes/foot') %>
+        <script>
+            $(document).ready(function () {
+                $('.app-tabs li').on('click', function () {
+                    var tab_id = $(this).attr('data-apptab');
+                    console.log(tab_id)
+                    $('.app-tabs li').removeClass('current');
+                    $('.app-tab-content').removeClass('current');
+                    $(this).addClass('current');
+                    $('#' + tab_id).addClass('current');
+                });
+            });
+        </script>
+
+</body>
+
+</html>

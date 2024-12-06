@@ -1,0 +1,256 @@
+<html lang="en">
+
+</html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Universal - Delivery Information</title>
+
+    <%- include('includes/head') %>
+        <!-- Tailwind Css -->
+</head>
+
+<body class="bg-gray-100">
+
+    </style>
+    <!--------------------------------- Main Header Section -------------------------------->
+
+    <%- include('includes/header') %>
+
+        <section class="md:p-10 pt-5">
+            <div class="xl:w-[1280px] m-auto">
+                <div class="md:flex block justify-center gap-10 mx-2">
+                    <div class="md:w-[65%]">
+                    <% if(cu_address.length > 0 ) { %>    
+                        <div>
+                            <div class="">
+                                <h3 class="text-2xl font-bold">Delivery Information</h3>
+                            </div>
+                            <div class="bg-white p-[25px] mt-[25px] rounded-[10px]">
+                                <div>
+                                     <div>
+                                        <h4 class="font-[600] text-[18px]">Billing Addres</h4>
+                                     </div>
+                            <% cu_address.forEach((item) => { %>         
+                                     <div class="mt-3 flex mb-10">
+                                       <div>
+                                            <p><strong><%= item.full_name %></strong></p>
+                                            <p><%= item.email %></p>
+                                            <p> <%= item.address %>,<%= item.city %> <%= item.state %>, <%= item.postcode %></p>
+                                       </div>
+                                       <div>
+                                          <a href="">Edit</a>
+                                       </div>
+                                    </div>
+                            <% }) %>        
+                                </div>
+                            </div>
+                        </div>
+                    <%  }else{ %>    
+                        <div>
+                            <div class="">
+                                <h3 class="text-2xl font-bold">Add Information</h3>
+                            </div>
+                            <div class="bg-white p-[25px] mt-[25px] rounded-[10px]">
+                                <form method="post" action="/delivery-info">
+                                    <div class="sm:flex gap-[15px]">
+                                        <div class="sm:w-[50%]">
+                                            <label for="name">Full Name</label>
+                                            <input type="text" name="full_name"
+                                                class="p-[8px] w-[100%] mt-2 border-[1px] outline-none rounded-[5px]"
+                                                required>
+                                        </div>
+                                        <div class="sm:w-[50%]">
+                                            <label for="name">Mobile Number</label>
+                                            <input type="text" name="mobile"
+                                                class="p-[8px] w-[100%] mt-2 border-[1px] outline-none rounded-[5px]"
+                                                required>
+                                        </div>
+                                    </div>
+                                    <div class="sm:flex gap-[15px] mt-[15px]">
+                                        <div class="sm:w-[50%]">
+                                            <label for="name">Email Address</label>
+                                            <input type="text" name="email"
+                                                class="p-[8px] w-[100%] mt-2 border-[1px] outline-none rounded-[5px]"
+                                                required>
+                                        </div>
+                                        <div class="sm:w-[50%]">
+                                            <label for="name">Street Address</label>
+                                            <input type="text" name="address"
+                                                class="p-[8px] w-[100%] mt-2 border-[1px] outline-none rounded-[5px]"
+                                                required>
+                                        </div>
+                                    </div>
+                                    <div class="sm:flex gap-[15px] mt-[15px]">
+                                        <div class="sm:w-[50%]">
+                                            <label for="name">City</label>
+                                            <input type="text" name="city"
+                                                class="p-[8px] w-[100%] mt-2 border-[1px] outline-none rounded-[5px]"
+                                                required>
+                                        </div>
+                                        <div class="sm:w-[50%]">
+                                            <label for="name">State</label>
+                                            <select name="state" id=""
+                                                class="p-[8px] w-[100%] mt-2 border-[1px] outline-none rounded-[5px]">
+                                                <option value="">-Select-</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="sm:flex gap-[15px] mt-[15px]">
+                                        <div class="sm:w-[50%]">
+                                            <label for="name">Post Code</label>
+                                            <input type="text" name="postcode"
+                                                class="p-[8px] w-[100%] mt-2 border-[1px] outline-none rounded-[5px]"
+                                                required>
+                                        </div>
+                                        <div class="sm:w-[50%]">
+                                            <label for="name">Country</label>
+                                            <select name="country" id=""
+                                                class="p-[8px] w-[100%] mt-2 border-[1px]  outline-none rounded-[5px]">
+                                                <option value="">-Select-</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <!-- Same As Billing Address -->
+                                    <div class="mt-[25px]">
+                                        <h2 class="text-2xl font-bold">Billing Information</h2>
+                                        <div class="mt-[10px] flex items-center gap-[7px]">
+                                            <input type="checkbox" class="w-[17px] h-[17px]">
+                                            <label for="" class="text-[13px]">Same as delivery address.</label>
+                                        </div>
+                                    </div>
+
+                            </div>
+                            <div class="bg-white p-[25px] mt-[25px] rounded-[10px]">
+                                <h2 class="text-2xl font-bold">Delivery Information</h2>
+                                <div class="sm:flex gap-[15px] mt-[15px]">
+                                    <div class="sm:w-[50%] sm:mb-3 lg:mb-0">
+                                        <label for="name">Delivery Date</label>
+                                        <input type="date" name="delivery_date"
+                                            class="p-[8px] w-[100%] mt-2 border-[1px] outline-none rounded-[5px]"
+                                            required>
+                                    </div>
+                                    <div class="sm:w-[50%]">
+                                        <label for="name">Delivery Time</label>
+                                        <input type="time" name="delivery_time"
+                                            class="p-[8px] w-[100%] mt-2 border-[1px] outline-none rounded-[5px]"
+                                            required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-3">
+                                <button type="submit"
+                                    class="bg-red-600 text-white p-2 px-[20px] rounded-[30px] w-[100%]">Submit</button>
+                            </div>
+                            </form>
+                        </div>
+                    <% } %>    
+                    </div>
+
+                    <div class=" md:w-[35%]">
+                        <div class="mt-4 sm:mt-0">
+                            <h3 class="text-2xl font-bold">Order Summary</h3>
+                        </div>
+                        <form action="/pay" method="POST" id="payForm">
+                            <div class="bg-white p-[15px] mt-[25px] rounded-[10px]">
+                                <div>
+                                    <% var total=0 %>
+                                    <% cartData.forEach(item=> { %>
+                                        <% total +=(item.product_price * item.quantity); %>
+                                            <div class="flex justify-between items-center mb-3 bg-gray-200 p-3">
+                                                <div class="flex gap-[10px] w-[75%]">
+                                                    <div class="bg-white p-2">
+                                                        <img src="<%= item.product_image %>" class="w-[80px]">
+                                                    </div>
+                                                    <div class="flex flex-col justify-between">
+                                                        <div>
+                                                            <h2 class="text-[16px] font-[600]">
+                                                                <%= item.product_name %>
+                                                            </h2>
+                                                            <p class="text-[13px] text-gray-400"></p>
+                                                        </div>
+                                                        <h3 class="text-[20px] font-[600]">£<%= item.product_price %>
+                                                        </h3>
+                                                    </div>
+                                                </div>
+                                                <div class="w-[25%]">
+                                                    <div
+                                                        class="bg-white flex justify-between p-[8px] items-center rounded-[10px] cursor-pointer">
+                                                        <span>-</span>
+                                                        <span>
+                                                            <%= item.quantity %>
+                                                        </span>
+                                                        <span>+</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        <% }) %>
+                                        <div class="mt-[25px]">
+                                            <ul class="px-3">
+                                                <li class="flex justify-between mb-2">
+                                                    <h3 class="text-gray-500">Sub- Total</h3>
+                                                    <h3 class="font-[600] text-[18px]">£<%= total.toFixed(2) %>
+                                                    </h3>
+                                                </li>
+                                                <li class="flex justify-between mb-2">
+                                                    <h3 class="text-gray-500">GST</h3>
+                                                    <h3 class="font-[600] text-[18px]">£00</h3>
+                                                </li>
+                                                <li class="flex justify-between mb-2">
+                                                    <h3 class="text-gray-500">Discount</h3>
+                                                    <h3 class="font-[600] text-[18px]">-£00</h3>
+                                                </li>
+                                                <li class="flex justify-between mb-2">
+                                                    <h3 class="text-gray-500">Delivery Fee</h3>
+                                                    <h3 class="font-[600] text-[18px]">£00</h3>
+                                                </li>
+                                            </ul>
+                                            <hr>
+                                            <ul class="px-3 mt-[10px]">
+                                                <li class="flex justify-between mb-2">
+                                                    <h3 class="text-gray-600">Total Cost</h3>
+                                                    <h3 class="font-[600] text-[18px]">£<%= total.toFixed(2) %>
+                                                    </h3>
+                                                </li>
+                                            </ul>
+                                            <div
+                                                class="flex gap-[5px] justify-center mt-[20px] mb-[15px] sm:px-[30px]">
+                                                <button type="submit"
+                                                    class="bg-red-600 text-white p-2 px-[20px] rounded-[30px] w-[100%]">Pay
+                                                    Now</button>
+                                                <button
+                                                    class="bg-black text-white p-2 px-[20px] rounded-[30px] w-[100%]">Pay
+                                                    On Delivery</button>
+                                            </div>
+                                        </div>
+                                </div>
+                            </div>
+                        
+                            <!-- Hidden input to send cartData -->
+                            <input type="hidden" name="cartData" value="<%= JSON.stringify(cartData) %>" id="cartDataInput">
+                        </form>
+                        
+                        <script>
+                            // Assuming cartData is available in your template (EJS or similar)
+                            const cartData = <%= JSON.stringify(cartData) %>; // cartData passed from backend
+                        
+                            // When form is submitted, serialize cartData and put it in the hidden input
+                            document.getElementById('payForm').addEventListener('submit', function(e) {
+                                // Serialize cartData into JSON and set it in the hidden input
+                                document.getElementById('cartDataInput').value = JSON.stringify(cartData);
+                            });
+                        </script>
+                        
+                    </div>
+                </div>
+            </div>
+            </div>
+        </section>
+
+        <%- include('includes/footer') %>
+            <%- include('includes/foot') %>
+
+</body>
+
+</html>

@@ -1,0 +1,272 @@
+<html lang="en"></html>
+
+</html>
+
+<head>
+    <base href="<%= baseURL %>">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Universal - <%= carData.part_name %></title>
+
+    <%- include('includes/head') %>
+        <!-- Tailwind Css -->
+</head>
+
+<body class="bg-white">
+    <style>
+        .bg-edge::after {
+            content: '';
+            width: 300px;
+            background-size: 100% 100%;
+            height: 100%;
+            background-image: url(assets/images/others/edge.png);
+            background-position: center;
+            position: absolute;
+            top: 0;
+            right: -95px;
+            background-repeat: no-repeat;
+            z-index: 1;
+        }
+        .tab {
+            display: none;
+        }
+
+        .tab.active {
+            display: block;
+        }
+
+        .tab-link.active {
+            border-bottom: 2px solid rgb(224, 14, 14);
+            font-weight: 600;
+            padding-bottom:5px ;
+        }
+        .tab-link {
+            cursor: pointer;
+        }
+    </style>
+ 
+    <!--------------------------------- Main Header Section -------------------------------->
+
+    <%- include('includes/header') %>
+
+        <section class="mt-[50px] mb-10">
+            <div class="xl:w-[1280px] m-auto">
+                <div class="md:flex block justify-center gap-10 mx-2">
+                    <div class="md:w-[50%]">
+                        <div class="bg-gray-300 text-center sm:p-10 py-20 flex items-center justify-center">
+                            <!-- Main Image -->
+                            <img id="mainImage" src="<%= carData.main_image_path %>" class="lg:w-[350px]" />
+                        </div>
+                        <div class="mt-5">
+                            <ul class="grid grid-cols-5 gap-3">
+                                <!-- Thumbnails -->
+                                <li class="bg-gray-300 p-3 rounded-[10px] cursor-pointer">
+                                    <img src="assets/images/products/engine-image-11.png" class="thumbnail" />
+                                </li>
+                                <li class="bg-gray-300 p-3 rounded-[10px] cursor-pointer">
+                                    <img src="assets/images/products/engine-image-11.png" class="thumbnail" />
+                                </li>
+                                <li class="bg-gray-300 p-3 rounded-[10px] cursor-pointer">
+                                    <img src="assets/images/products/engine-image-11.png" class="thumbnail" />
+                                </li>
+                                <li class="bg-gray-300 p-3 rounded-[10px] cursor-pointer">
+                                    <img src="assets/images/products/engine-image-11.png" class="thumbnail" />
+                                </li>
+                                <li class="bg-gray-300 p-3 rounded-[10px] cursor-pointer">
+                                    <img src="assets/images/products/engine-image-11.png" class="thumbnail" />
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <script>
+                        const thumbnails = document.querySelectorAll('.thumbnail');
+                        const mainImage = document.getElementById('mainImage');
+                        thumbnails.forEach((thumbnail) => {
+                            thumbnail.addEventListener('click', () => {
+                                mainImage.src = thumbnail.src;
+                            });
+                        });
+                    </script>
+                    
+
+                    <div class="md:w-[50%] mt-5 sm:mt-0">
+                        <div>
+                            <h2 class="text-2xl font-[600]"><%= carData.part_name %></h2>
+                            <div class="mt-2 flex items-center gap-2">
+                                <ul class="flex gap-1">
+                                    <li><img src="assets/images/others/star.svg" alt=""></li>
+                                    <li><img src="assets/images/others/star.svg" alt=""></li>
+                                    <li><img src="assets/images/others/star.svg" alt=""></li>
+                                    <li><img src="assets/images/others/star.svg" alt=""></li>
+                                    <li><img src="assets/images/others/star.svg" alt=""></li>
+                                </ul>
+                                <div>
+                                    <span class="text-[13px] text-gray-500">157 Reviews</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex gap-[50px]">
+                            <div>
+                                <h3 class="text-[22px] font-[600] whitespace-nowrap">£<%= carData.main_price %> <span
+                                        class="text-[18px] text-gray-500 font-[500] line-through">£<%= carData.price %></span></h3>
+                                <span class="text-[13px] text-gray-500 flex gap-2 mt-2 whitespace-nowrap"> <img
+                                        src="assets/images/others/tag.svg" alt=""> Save <%= carData.discount %>% right now</span>
+                            </div>
+                            <div>
+                                <img src="assets/images/others/payment-img.svg" alt="">
+                            </div>
+                        </div>
+                        <div class="mt-[20px]">
+                            <h3 class="text-[18px] font-[600] mb-3">Features:</h3>
+                            <ul>
+                                <li class="mb-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
+                                <li class="mb-1">Lorem ipsum dolor sit amet</li>
+                                <li class="mb-1">Lorem ipsum dolor sit amet, consectetur.</li>
+                            </ul>
+                        </div>
+                        <div class="mt-10">
+                            <div class="flex gap-5">
+                                <a href="delivery-info"
+                                    class="w-[210px] text-center bg-red-700 text-white hover:bg-white hover:text-black hover:border-red-600 p-3 rounded-[50px] text-[16px]">Get
+                                    in Delivery</a>
+                                <a href=""
+                                    class="w-[210px] text-center bg-white-700 text-black p-3 rounded-[50px] border border-[1px] border-red-700 hover:bg-red-700 hover:text-white">Collect
+                                    Form Store</a>
+                            </div>
+                        </div>
+                        <div class="mt-7">
+                            <ul>
+                                <li class="mb-2 text-gray-500">Free shipping worldwide</li>
+                                <li class="mb-2 text-gray-500">100% Secured Payment</li>
+                                <li class="mb-2 text-gray-500">Made by the Professionals</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+      
+        <section class="mt-[50px] mb-10 mx-2">
+            <div class="xl:w-[1280px] mx-auto">
+                <div>
+                    <ul class="tabs flex gap-10  border-black pb-2 block">
+                        <li class="tab-links active cursor-pointer" data-tab="tab-1">Engine Details</li>
+                        <li class="tab-links cursor-pointer" data-tab="tab-2">Reviews</li>
+                    </ul>
+                    <div class="tab-content">
+                        <!-- Tab 1 Content -->
+                        <div id="tab-1" class="tab active">
+                            <ul class="mt-5">
+                                <li class="mb-2">2018 - Car Name - 911 - Engine - Engine</li>
+                                <li class="mb-2">Engine for a 2018 PORSCHE 911</li>
+                                <li class="mb-2">Mk6 (991) 3.0 Petrol Engine Code DCJ 331 Kw 450 Bhp</li>
+                            </ul>
+                            <div>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut accumsan maximus nisi,
+                                    sed mattis libero sollicitudin et. Nullam dapibus
+                                    augue ante, at consequat quam sollicitudin in. Praesent condimentum tincidunt
+                                    pellentesque. Fusce vitae tincidunt sem. Curabitur
+                                    gravida odio velit. Orci varius natoque penatibus et magnis dis parturient montes,
+                                    nascetur ridiculus mus. Sed sodales mollis erat quis
+                                    sollicitudin. Mauris fringilla elit orci, nec mattis nulla vestibulum vitae. Donec
+                                    sapien augue, euismod eu libero quis, luctus efficitur tellus.
+                                    Pellentesque elementum, libero sit amet eleifend molestie, mauris est lobortis
+                                    lacus, at pretium lectus felis vitae nibh. Proin auctor ultrices
+                                    arcu ac pretium. Pellentesque habitant morbi tristique senectus et netus et
+                                    malesuada fames ac turpis egestas.</p>
+                            </div>
+                        </div>
+                        <!-- Tab 2 Content -->
+                        <div id="tab-2" class="tab">
+                             <div class="sm:w-[60%] mt-5">
+                                <div class="flex gap-5 mb-5 border-b-[1px] pb-5">
+                                    <div>
+                                        <h3 class="bg-red-500 w-[50px] h-[50px] rounded-[50%]"></h3>
+                                    </div>
+                                    <div class="mt-2">
+                                        <div>
+                                            <ul class="flex gap-1">
+                                                <li><img src="assets/images/others/star.svg" class="w-[20px]" alt=""></li>
+                                                <li><img src="assets/images/others/star.svg" class="w-[20px]" alt=""></li>
+                                                <li><img src="assets/images/others/star.svg" class="w-[20px]" alt=""></li>
+                                                <li><img src="assets/images/others/star.svg" class="w-[20px]" alt=""></li>
+                                                <li><img src="assets/images/others/star.svg" class="w-[20px]" alt=""></li>
+                                            </ul>
+                                            <p class="mt-5">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ornare, eros quis tempus congue, arcu nisi auctor dui, a convallis magna nibh nec libero. Sed dictum lorem dui. Nam ut porta augue. Ut tincidunt nulla tellus, in egestas dui molestie nec.</p>
+                                        </div>
+                                        <div class="mt-5">
+                                            <h4 class="text-[18px] font-[600]">Kristin Watson</h4>
+                                            <span class="text-gray-500 text-[15px]">March 14, 2024</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex gap-5 mb-5 border-b-[1px] pb-5">
+                                    <div>
+                                        <h3 class="bg-red-500 w-[50px] h-[50px] rounded-[50%]"></h3>
+                                    </div>
+                                    <div class="mt-2">
+                                        <div>
+                                            <ul class="flex gap-1">
+                                                <li><img src="assets/images/others/star.svg" class="w-[20px]" alt=""></li>
+                                                <li><img src="assets/images/others/star.svg" class="w-[20px]" alt=""></li>
+                                                <li><img src="assets/images/others/star.svg" class="w-[20px]" alt=""></li>
+                                                <li><img src="assets/images/others/star.svg" class="w-[20px]" alt=""></li>
+                                                <li><img src="assets/images/others/star.svg" class="w-[20px]" alt=""></li>
+                                            </ul>
+                                            <p class="mt-5">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ornare, eros quis tempus congue, arcu nisi auctor dui, a convallis magna nibh nec libero. Sed dictum lorem dui. Nam ut porta augue. Ut tincidunt nulla tellus, in egestas dui molestie nec.</p>
+                                        </div>
+                                        <div class="mt-5">
+                                            <h4 class="text-[18px] font-[600]">Kristin Watson</h4>
+                                            <span class="text-gray-500 text-[15px]">March 14, 2024</span>
+                                        </div>
+                                    </div>
+                                </div>
+                              </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!---------------------------------Payment Method-------------------------------->
+                <div class="mt-20">
+                    <div class="bg-gray-100 p-5 rounded-[10px]">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-[20px]">
+                            <div class="border border-[1px] p-8  rounded-[10px] bg-white">
+                                <h3 class="text-2xl mb-2 font-[600]">Convenient delivery</h3>
+                                <p class="text-gray-300">Lorem ipsum dolor sit amet, consectetur adipiscing 
+                                    elit Duis quis ultricies leo. </p>
+                                <div class="mt-[20px]">
+                                    <img src="assets/images/others/payment-img.svg" />
+                                </div>    
+                            </div>
+                            <div class="border border-[1px] p-8  rounded-[10px] bg-white">
+                                <h3 class="text-2xl mb-2 font-[600]">Flexible payment</h3>
+                                <p class="text-gray-300">Lorem ipsum dolor sit amet, consectetur adipiscing 
+                                    elit Duis quis ultricies leo. </p>
+                                <div class="mt-[20px]">
+                                    <img src="assets/images/others/payment-img.svg" />
+                                </div>    
+                            </div>
+                            <div class="border border-[1px] p-8  rounded-[10px] bg-white">
+                                <h3 class="text-2xl mb-2 font-[600]">Flexible payment</h3>
+                                <p class="text-gray-300">Lorem ipsum dolor sit amet, consectetur adipiscing 
+                                    elit Duis quis ultricies leo. </p>
+                                <div class="mt-[20px] leading-[1px]">
+                                    <h3 class="text-2xl mb-2 font-[600]">+41 2542 253 2542</h3>
+                                    <span>info@caruniversal.co.uk</span>
+                                </div>    
+                            </div>
+                        </div>
+                    </div>
+                </div>
+             </div>
+        </section>
+        
+        
+
+        <%- include('includes/footer') %>
+        <%- include('includes/foot') %>
+
+</body>
+
+</html>

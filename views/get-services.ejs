@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Appoinment | Car Universal</title>
+    <%- include('includes/head') %>
+</head>
+<style>
+    .feature-tabs ul li {
+        width: 190px;
+        border-radius: 10px;
+        padding-left: 10px;
+        cursor: pointer;
+    }
+
+    .feature-tabs {
+        margin-right: 20px;
+    }
+
+    .category-item.active-category {
+        background-color: #000;
+        color: #fff;
+    }
+
+    .service-list {
+        display: none;
+    }
+
+    .visible {
+        display: block;
+    }
+
+    .service-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin: 0 0 15px;
+    }
+
+    .service.selected {
+        border-color: #c32026;
+    }
+
+    .service.selected svg {
+        display: block;
+    }
+
+    .service svg {
+        display: none;
+    }
+</style>
+
+<body class="bg-slate-100">
+    <!--------------------------------- Main Header -------------------------------->
+    <div class="w-full flex justify-center bg-white border-b p-2 px-24">
+        <div class="w-full max-w-screen-xl flex justify-between items-center relative">
+            <button
+                class="p-3 px-5 absolute inline-flex items-center top-full mt-5 bg-black text-white rounded-full slide-back">
+                <span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 1024 1024">
+                        <path fill="currentColor" d="M224 480h640a32 32 0 1 1 0 64H224a32 32 0 0 1 0-64" />
+                        <path fill="currentColor"
+                            d="m237.248 512l265.408 265.344a32 32 0 0 1-45.312 45.312l-288-288a32 32 0 0 1 0-45.312l288-288a32 32 0 1 1 45.312 45.312z" />
+                    </svg>
+                </span>
+                <span class="ml-2">
+                    Back
+                </span>
+            </button>
+            <div><a href="/"><img src="assets/images/logo.png" alt=""></a></div>
+            <div><a href="/" class="p-3 px-5 border border-red-600 rounded-full font-semibold">Need Help</a></div>
+        </div>
+    </div>
+
+
+    <!--------------------------------- Cart Slides -------------------------------->
+    <div class="flex overflow-x-hidden all-steps">
+        <!--------------------------------- Select Services -------------------------------->
+        <div class="min-w-full flex justify-center sm:p-24 p-3 bg-gray-100 h-full steps transition-super-fast-move">
+
+            <div class="w-full max-w-screen-xl sm:flex justify-center">
+                <div>
+                    <div class="feature-tabs">
+                        <ul class="mt-20 grid grid-cols-2 gap-2 sm:grid-cols-1">
+                            <% let categoriesDisplayed={}; %>
+                                <% let defaultCategoryId=null; %>
+                                    <% categoriesWithServices.forEach(item=> { %>
+                                        <% if (!categoriesDisplayed[item.category_id]) { %>
+                                            <li class="bg-white p-2 mb-3 category-item <%= (defaultCategoryId === null) ? 'active-category' : '' %>"
+                                                data-category-id="<%= item.category_id %>">
+                                                <%= item.category_name %>
+                                            </li>
+                                            <% if (defaultCategoryId===null) { %>
+                                                <% defaultCategoryId=item.category_id; %>
+                                                    <% } %>
+                                                        <% categoriesDisplayed[item.category_id]=true; %>
+                                                            <% } %>
+                                                                <% }) %>
+                        </ul>
+                    </div>
+                </div>
+                <div class="border sm:w-3/4 sm:flex justify-center items-start border bg-white rounded-2xl">
+                    <div class="sm:w-3/5">
+                        <div class="w-full flex justify-between p-8">
+                            <h1 class="text-3xl font-semibold">Select Services</h1>
+                            <div class="all-services"></div>
+                        </div>
+                        <hr>
+                        <!-- All Services Grid -->
+                        <div class="w-full p-8 all-services-grid">
+                            <h2 class="text-xl font-semibold mb-4">Servicing And MOT</h2>
+                            <% categoriesDisplayed={}; %>
+                                <% categoriesWithServices.forEach(item=> { %>
+                                    <% if (!categoriesDisplayed[item.category_id]) { %>
+
+                                        <div class="service-list <%= (defaultCategoryId === item.category_id) ? 'visible' : '' %>"
+                                            id="category-<%= item.category_id %>">
+                                            <% categoriesWithServices .filter(service=> service.category_id ===
+                                                item.category_id)
+                                                .forEach(service => { %>
+                                                <button data-service-id="<%= service.service_id %>"
+                                                    data-service-name="<%= service.service_name %>"
+                                                    data-service-description=" <%= service.description %>"
+                                                    data-service-service_charge=" <%= service.service_charge %>"
+                                                    class="service block text-start p-6 rounded-xl border-2 w-full relative mb-4 cursor-pointer hover:border-red-600">
+                                                    <h1 class="text-lg font-semibold">
+                                                        <%= service.service_name %>
+                                                    </h1>
+                                                    <p class="text-gray-400">
+                                                        <%= service.description %>
+                                                    </p>
+                                                    <p class="font-semibold text-xl"><span class="font-sans">₤</span>
+                                                        <%= service.service_charge %>
+                                                    </p>
+                                                    <span class="absolute top-4 right-4">
+                                                        <svg width="28" height="28" viewBox="0 0 28 28" fill="none"
+                                                            xmlns="http://www.w3.org/2000/svg">
+                                                            <circle cx="14" cy="14" r="14" fill="#C32026" />
+                                                            <path d="M9 15L12.5 18L19.5 9" stroke="white"
+                                                                stroke-width="2.5" stroke-linecap="round"
+                                                                stroke-linejoin="round" />
+                                                        </svg>
+                                                    </span>
+                                                </button>
+                                                <% }) %>
+                                        </div>
+                                        <% categoriesDisplayed[item.category_id]=true; %>
+                                            <% } %>
+                                                <% }) %>
+                        </div>
+                    </div>
+                    <!-- Image Zone -->
+                    <div class="sm:w-2/5 min-h-full border-l rounded-2xl p-4 pt-2 px-0 relative">
+                        <div class="w-full p-4 flex justify-between items-center">
+                            
+                            <span>
+                                <div class="text-lg font-semibold"><%= manufacturer %></div>
+                                <div class="text-gray-400"><span> <%= manufacturer %></span>, <span>Peckham</span></div>
+                                <input type="hidden" id="manufacturer" value="<%= manufacturer %>">
+                                <input type="hidden" id="car_model" value="<%= car_model %>">
+                                <input type="hidden" id="generation" value="<%= generation %>">
+                            </span>
+
+                            <span
+                                class="p-1 px-3 rounded-full inline-flex justify-center items-center bg-orange-50 border border-yellow-500">
+                                <span class="mr-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
+                                        viewBox="0 0 32 32">
+                                        <path fill="#fcd53f"
+                                            d="m18.7 4.627l2.247 4.31a2.27 2.27 0 0 0 1.686 1.189l4.746.65c2.538.35 3.522 3.479 1.645 5.219l-3.25 2.999a2.23 2.23 0 0 0-.683 2.04l.793 4.398c.441 2.45-2.108 4.36-4.345 3.24l-4.536-2.25a2.28 2.28 0 0 0-2.006 0l-4.536 2.25c-2.238 1.11-4.786-.79-4.345-3.24l.793-4.399c.14-.75-.12-1.52-.682-2.04l-3.251-2.998c-1.877-1.73-.893-4.87 1.645-5.22l4.746-.65a2.23 2.23 0 0 0 1.686-1.189l2.248-4.309c1.144-2.17 4.264-2.17 5.398 0" />
+                                    </svg>
+                                    </svg>
+                                </span>
+                                <span>4.9</span>
+                            </span>
+                        </div>
+
+                        <!-- Dynamic Cart Details -->
+                        <div class="selected-services-cart">
+                            <div class="selected-services-cart-value  p-4 items-center justify-between">
+                                <!-- Service Fetch Data Here -->
+                            </div>
+                        </div>
+                        <hr>
+                        <!-- Total Cart Value -->
+                        <div class="p-4 flex items-center justify-between mb-14">
+                            <div class="text-xl font-semibold">Total</div>
+                            <div class="text-xl font-semibold">
+                                <span class="font-sans">₤</span>
+                                <span class="final-amount-total"></span>
+                            </div>
+                        </div>
+                        <div class="w-full flex justify-center items-center p-4 absolute bottom-0">
+                            <button
+                                class="book-appointment w-full rounded-full h-12 bg-red-700 text-white">Continue</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--------------------------------- End -------------------------------->
+
+        <!--------------------------------- Select Date & Time Slot -------------------------------->
+        <div class="min-w-full flex justify-center sm:p-24 p-2 bg-gray-100 h-full steps transition-super-fast-move">
+            <div class="w-full max-w-screen-xl flex justify-center">
+                <div class="border w-[100%] flex justify-center items-start border bg-white rounded-2xl">
+
+                    <div class="w-3/5">
+                        <div class="w-full flex justify-between p-8">
+                            <h1 class="text-3xl font-semibold">Select Time</h1>
+                        </div>
+                        <hr>
+                        <!-- Time Slot -->
+                        <div class="w-full p-8 date-time-slot--and-navigation flex items-center justify-between">
+
+                            <select id="monthSelector" class="p-1 border"></select>
+
+                            <div class="flex items-center">
+                                <button id="prevMonth"
+                                    class="inline-flex h-10 w-10 justify-center items-center rounded-full bg-gray-100 mr-2">
+                                    <!-- SVG for Arrow Left -->
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="16"
+                                        viewBox="0 0 320 512">
+                                        <path fill="black"
+                                            d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z" />
+                                    </svg>
+                                </button>
+                                <button id="nextMonth"
+                                    class="inline-flex h-10 w-10 justify-center items-center rounded-full bg-gray-100">
+                                    <!-- SVG for Arrow Right -->
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="16"
+                                        viewBox="0 0 320 512">
+                                        <path fill="currentColor"
+                                            d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256L73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z" />
+                                    </svg>
+                                </button>
+                            </div>
+
+                        </div>
+
+                        <!-- Days Gap -->
+                        <div class="relative">
+                            <button id="prevWeek" class="absolute top-10 left-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="10" height="16" viewBox="0 0 320 512">
+                                    <path fill="black"
+                                        d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z" />
+                                </svg>
+                            </button>
+                            <button id="nextWeek" class="absolute right-4 top-10">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="10" height="16" viewBox="0 0 320 512">
+                                    <path fill="currentColor"
+                                        d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256L73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z" />
+                                </svg>
+                            </button>
+                            <div class="w-full overflow-hidden flex gap-2 justify-between px-8 pb-4 date-timeline grid grid-cols-7"
+                                id="daysContainer"></div>
+                        </div>
+                        <div class="mx-8 mb-10 mt-4">
+                            <h3 class="text-[16px] font-[500] mb-3 text-green-600">Available Slot</h3>
+                            <div class="grid grid-cols-5 gap-4" id="timeSlotsContainer">
+                                 <!-- <div class="p-5 border-[2px] rounded-md text-center cursor-pointer hover:border-red-500">
+                                    <span>10:30am</span>
+                                </div>   -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Image Zone -->
+                    <div class="w-2/5 min-h-full border-l rounded-2xl p-4 pt-2 px-0 relative">
+                        <div class="w-full p-4 flex justify-between items-center">
+                            <span>
+                                <img src="assets/images/asset-001.png" width="60px" alt="">
+                            </span>
+                            <!-- <span>
+                                <div class="text-lg font-semibold">Adiscolocstylist</div>
+                                <div class="text-gray-400"><span>Peckham</span>, <span>Peckham</span></div>
+                            </span> -->
+
+                            <span
+                                class="p-1 px-3 rounded-full inline-flex justify-center items-center bg-orange-50 border border-yellow-500">
+                                <span class="mr-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
+                                        viewBox="0 0 32 32">
+                                        <path fill="#fcd53f"
+                                            d="m18.7 4.627l2.247 4.31a2.27 2.27 0 0 0 1.686 1.189l4.746.65c2.538.35 3.522 3.479 1.645 5.219l-3.25 2.999a2.23 2.23 0 0 0-.683 2.04l.793 4.398c.441 2.45-2.108 4.36-4.345 3.24l-4.536-2.25a2.28 2.28 0 0 0-2.006 0l-4.536 2.25c-2.238 1.11-4.786-.79-4.345-3.24l.793-4.399c.14-.75-.12-1.52-.682-2.04l-3.251-2.998c-1.877-1.73-.893-4.87 1.645-5.22l4.746-.65a2.23 2.23 0 0 0 1.686-1.189l2.248-4.309c1.144-2.17 4.264-2.17 5.398 0" />
+                                    </svg>
+                                </span>
+
+                                <span>4.9</span>
+                            </span>
+                        </div>
+
+                        <!-- Dynamic Cart Details With Time -->
+                        <div class="selected-services-cart">
+                            <div class="selected-services-cart-value  p-4 items-center justify-between">
+                                <!-- Service Fetch Data Here -->
+                            </div>
+                        </div>
+                        <hr>
+                        <!-- Total Cart Value -->
+                        <div class="p-4 flex items-center justify-between mb-14">
+                            <div class="text-xl font-semibold">Total</div>
+                            <div class="text-xl font-semibold"><span class="font-sans">₤</span><span
+                                    class="final-amount-total">0.00</span></div>
+                        </div>
+
+                        <div class="w-full flex justify-center items-center p-4 absolute bottom-0">
+                            <button  class="book-appointments w-full get-all-data rounded-full h-12 bg-red-700 text-white" id="openModal">Continue</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <style>
+            #orderModal {
+                display: none;
+            }
+        </style>
+        <!--------------------------------- End -------------------------------->
+        <!-- Contact Modal -->
+        <div class="relative z-10" id="orderModal" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+            <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+            <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+                <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+                    <div
+                        class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all w-[800px]">
+                        <div class="modal-header">
+                            <div></div>
+                            <div>
+                                <button class="absolute right-4 top-4" id="closeModal"><svg
+                                        xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+                                        <path fill="currentColor"
+                                            d="M2.93 17.07A10 10 0 1 1 17.07 2.93A10 10 0 0 1 2.93 17.07m1.41-1.41A8 8 0 1 0 15.66 4.34A8 8 0 0 0 4.34 15.66m9.9-8.49L11.41 10l2.83 2.83l-1.41 1.41L10 11.41l-2.83 2.83l-1.41-1.41L8.59 10L5.76 7.17l1.41-1.41L10 8.59l2.83-2.83z" />
+                                    </svg></button>
+                            </div>
+                        </div>
+                        <div class="mt-5 py-10">
+                            <form class="mx-5">
+                                <div class="flex gap-3">
+                                    <div class="w-[50%]">
+                                        <div>
+                                            <label for="name">Name</label>
+                                            <input type="text" name="name" id="name"
+                                                class="p-2 border-[1px] w-[100%] rounded-md outline-none mt-2" required />
+                                        </div>
+                                    </div>
+                                    <div class="w-[50%]">
+                                        <div>
+                                            <label for="name">Email</label>
+                                            <input type="text" name="email" id="email"
+                                                class="p-2 border-[1px] w-[100%] rounded-md outline-none mt-2" required />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex gap-3 mt-5">
+                                    <div class="w-[50%]">
+                                        <div>
+                                            <label for="name">Phone No</label>
+                                            <input type="text" name="phone" id="phone"
+                                                class="p-2 border-[1px] w-[100%] rounded-md outline-none mt-2" required />
+                                        </div>
+                                    </div>
+                                    <div class="w-[50%]">
+                                        <div>
+                                            <label for="name">Address</label>
+                                            <input type="text" name="address" id="address"
+                                                class="p-2 border-[1px] w-[100%] rounded-md outline-none mt-2" required />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex gap-3 mt-5">
+                                    <div class="w-[100%]">
+                                        <label name="message">Message</label>
+                                        <textarea
+                                            class="p-2 border-[1px] w-[100%] rounded-md outline-none mt-2" name="message" id="message"></textarea>
+                                    </div>
+                                </div>
+                        </div>
+                        <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                            <button type="button" id="submitInfo"
+                                class="inline-flex w-full justify-center rounded-md bg-green-600 px-3 py-2 px-8 text-sm font-semibold text-white shadow-sm hover:bg-green-500 sm:ml-3 sm:w-auto">Submit</button>
+                            <button type="button"
+                                class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">Cancel</button>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <%- include('includes/foot') %>
+ 
+        <script>
+        
+            const allSteps = document.querySelectorAll(".steps");
+            const bookAppointmentButton = document.querySelectorAll(".book-appointment") //Step 1 Button
+            const slideBack = document.querySelector(".slide-back");
+            const selectedServicesCart = document.querySelector(".selected-services-cart") // Selected Services Cart Renderer
+            let slideMoved = 0
+            let totalSlides = 3
+            bookAppointmentButton.forEach((button) => {
+                button.addEventListener("click", () => {
+                    if (slideMoved < totalSlides) {
+                        slideMoved++
+                        allSteps[0].style.marginLeft = `-${slideMoved * 100}%`;
+
+                    }
+                })
+            })
+            slideBack.addEventListener("click", () => {
+                if (slideMoved > 0) {
+                    slideMoved--
+                    allSteps[0].style.marginLeft = `-${slideMoved * 100}%`;
+
+                }
+            })
+        </script>
+ 
+</body>
+
+</html>

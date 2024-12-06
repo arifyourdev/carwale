@@ -1,0 +1,27 @@
+@media only screen and (max-width: 720px) {
+    .about-text-rotated, .our-service-bordered-text, .about-head-border-text{
+        font-size: 6em;
+    }
+    .bg-edge::after {
+        width: 130px !important;
+        right: -64px !important;
+    }
+    .navigation-links{
+        display: none;
+    }
+    .navigation-links-list {
+         flex-direction: column;
+    }
+    .feature-tabs ul li {
+        width: auto !important;
+     }
+}
+@media only screen and (max-width: 370px) {
+    .about-text-rotated, .our-service-bordered-text, .about-head-border-text{
+        font-size: 6em;
+    }
+    .bg-edge::after {
+        width: 100px;
+        right: -50px;
+    }
+}
