@@ -168,7 +168,7 @@ export const loginUser = async (req,res) =>{
         const userId = user.id;
 
         for (const product of req.session.cart) {
-            const { product_id, product_name, product_price, quantity, product_image } = product;
+            const { product_id, product_name, product_size, product_price, quantity, product_image } = product;
 
             const [existingProduct] = await connect.execute(
                 'SELECT quantity FROM cu_cart WHERE user_id = ? AND product_id = ?',
@@ -182,8 +182,8 @@ export const loginUser = async (req,res) =>{
                 );
             } else {
                  await connect.execute(
-                    'INSERT INTO cu_cart (user_id, product_id, product_name, product_price, quantity, product_image, created_at) VALUES (?, ?, ?, ?, ?, ?, NOW())',
-                    [userId, product_id, product_name, product_price, quantity, product_image]
+                    'INSERT INTO cu_cart (user_id, product_id, product_name, product_size, product_price, quantity, product_image, created_at) VALUES (?, ?, ?, ?, ?, ?, NOW())',
+                    [userId, product_id, product_name, product_size, product_price, quantity, product_image]
                 );
             }
         }
@@ -196,7 +196,7 @@ export const loginUser = async (req,res) =>{
         const userId = user.id;
 
         for (const buynow of req.session.buyNow) {
-            const { product_id, product_name, product_price, quantity, product_image } = buynow;
+            const { product_id, product_name, product_size, product_price, quantity, product_image } = buynow;
 
             const [existingProduct] = await connect.execute(
                 'SELECT quantity FROM cu_cart WHERE user_id = ? AND product_id = ?',
@@ -210,8 +210,8 @@ export const loginUser = async (req,res) =>{
                 );
             } else {
                 await connect.execute(
-                    'INSERT INTO cu_cart (user_id, product_id, product_name, product_price, quantity, product_image, created_at) VALUES (?, ?, ?, ?, ?, ?, NOW())',
-                    [userId, product_id, product_name, product_price, quantity, product_image]
+                    'INSERT INTO cu_cart (user_id, product_id, product_name, product_size, product_price, quantity, product_image, created_at) VALUES (?, ?, ?, ?, ?, ?, NOW())',
+                    [userId, product_id, product_name, product_size, product_price, quantity, product_image]
                 );
             }
         }

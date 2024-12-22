@@ -5,6 +5,8 @@ import { AppointmentList } from "../controllers/adminController.js";
 import { engineList ,viewEngine ,addEngine ,editEngine ,updateEngine ,deleteEngine} from "../controllers/engineController.js";
 import { carPartsList, viewAddCard ,addCarParts ,editCarParts, updateCarParts } from "../controllers/carPartsController.js";
 import { editContent, updateContent } from "../controllers/contentController.js";
+import { upload } from "../multer-config.js";
+
 const router = express.Router();
 
 router.get('/', (req, res) => {
@@ -24,7 +26,7 @@ router.get('/appointments-list',AppointmentList);
 // Engines Route
 router.get('/engines-list', engineList)
 router.get('/add-engines',viewEngine)
-router.post('/add-engines',addEngine)
+router.post('/add-engines',upload.single('main_image_path'), addEngine)
 router.get('/edit-engine/:id' ,editEngine)
 router.post('/edit-engine',updateEngine)
 router.delete('/delete-engine/:id',deleteEngine)

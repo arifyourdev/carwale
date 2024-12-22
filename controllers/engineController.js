@@ -2,11 +2,13 @@ import connect from "../db/connect.js"
 import { getAllEngines } from "../services/engineService.js"
 import { getActiveManufacturers } from "../services/manufacturerService.js"
 import { getAllModals } from "../services/modalServices.js";
+import  cloudinary from "cloudinary";
+import fs from 'fs';
 
 export const engineList = async(req,res) =>{
     try{
        const engineData = await getAllEngines(); 
-       res.render('admin/engines-list',{engineData})
+       res.render('admin/engines-list',{engineData});
     }catch(e){
         console.log(e)
     }
@@ -22,15 +24,55 @@ export const viewEngine = async (req,res) =>{
     }
 }
 
-export const addEngine = async (req,res) =>{
-    try{
-        const {manufacturer,c_modal,c_gen,engine_name,seo_url,description,price,discount, main_price ,main_image_path} = req.body
-        await connect.execute("INSERT INTO engines (manufacturer,c_modal,c_gen,engine_name,seo_url,description,price,discount,main_price,main_image_path,created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())",[manufacturer,c_modal,c_gen,engine_name,seo_url,description,price,discount,main_price,main_image_path,]);
+// Add Engine
+export const addEngine = async (req, res) => {
+    try {
+        const { manufacturer, c_modal, c_gen, engine_name, seo_url, description, price, discount, main_price, size, quantity } = req.body;
+
+        const result = await cloudinary.v2.uploader.upload(req.file.path, {
+            folder: 'engine-images',
+        });
+
+        const main_image_path = result.secure_url;
+
+        const [engineResult] = await connect.execute(
+            "INSERT INTO engines (manufacturer, c_modal, c_gen, engine_name, seo_url, description, price, discount, main_price, main_image_path, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())",
+            [manufacturer, c_modal, c_gen, engine_name, seo_url, description, price, discount, main_price, main_image_path]
+        );
+
+        fs.unlink(req.file.path, (err) => {
+            if (err) console.error(err);
+            console.log('Temporary file deleted');
+        });
+
+        const engineId = engineResult.insertId; 
+
+        if (Array.isArray(size) && Array.isArray(quantity)) {
+            const sizeData = size.map((sizeValue, index) => [
+                engineId,
+                sizeValue,
+                quantity[index],
+            ]);
+
+            await connect.query(
+                "INSERT INTO size (engine_id, size, quantity) VALUES ?",
+                [sizeData]
+            );
+        } else if (size && quantity) {
+            // Handle single size and quantity input
+            await connect.execute(
+                "INSERT INTO size (engine_id, size, quantity) VALUES (?, ?, ?)",
+                [engineId, size, quantity]
+            );
+        }
+
         res.redirect('/admin/engines-list');
-    }catch(e){
-        console.log(e)
+    } catch (e) {
+        console.error(e);
+        res.status(500).send("An error occurred.");
     }
-}
+};
+
 
 export const editEngine = async (req, res) => {
     try {

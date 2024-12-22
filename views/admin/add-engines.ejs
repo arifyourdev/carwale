@@ -24,7 +24,7 @@
                             <h3 class="text-2xl font-bold">Add Manufacture</h3>
                          </div>
                          <div class="mt-4">
-                              <form method="post" action="/admin/add-engines">
+                              <form method="post" action="/admin/add-engines" enctype="multipart/form-data">
                                 <div class="flex gap-5">
                                     <div class="sm:w-[50%]">
                                         <div>
@@ -107,10 +107,33 @@
                                             <input type="text" name="main_price" id="mainPrice" class="p-2 border-[1px] rounded-[10px] w-[100%] mt-2 outline-none" required>
                                         </div>
                                     </div>
-                                    <div class="sm:w-[50%]">
+                                 </div>
+                                 <div class="mt-5">
+                                    <div class="sm:w-[100%]">
                                         <div>
                                             <label class="font-[600]">Image</label>
-                                            <input type="text" name="main_image_path" class="p-2 border-[1px] rounded-[10px] w-[100%] mt-2 outline-none" required>
+                                            <input type="file" name="main_image_path" class="p-2 border-[1px] rounded-[10px] w-[100%] mt-2 outline-none" required>
+                                        </div>
+                                    </div>
+                                 </div>
+                                 <div class="mt-5 flex flex-col gap-5" id="inputContainer">
+                                    <div class="flex gap-5 input-row">
+                                        <div class="sm:w-[45%]">
+                                            <div>
+                                                <label class="font-[600]">Size</label>
+                                                <input type="text" name="size[]" class="p-2 border-[1px] rounded-[10px] w-[100%] mt-2 outline-none" required>
+                                            </div>
+                                        </div>
+                                        <div class="sm:w-[45%]">
+                                            <div>
+                                                <label class="font-[600]">Quantity</label>
+                                                <input type="text" name="quantity[]" class="p-2 border-[1px] rounded-[10px] w-[100%] mt-2 outline-none" required>
+                                            </div>
+                                        </div>
+                                        <div class="sm:w-[10%]">
+                                            <div class="mt-8">
+                                                <button type="button" class="bg-red-500 p-2 px-5 text-white rounded-[10px] w-[100%] add-row">+Add</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -153,5 +176,49 @@
         $('select[name="c_modal"] option[data-menufecture="' + menu_id + '"]').show();
       })
     </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const inputContainer = document.getElementById('inputContainer');
+            inputContainer.addEventListener('click', function (e) {
+                if (e.target.classList.contains('add-row')) {
+                    e.preventDefault();
+        
+                    // Create a new input row
+                    const newRow = document.createElement('div');
+                    newRow.classList.add('flex', 'gap-5', 'input-row');
+        
+                    newRow.innerHTML = `
+                        <div class="sm:w-[45%]">
+                            <div>
+                                <label class="font-[600]">Size</label>
+                                <input type="text" name="size[]" class="p-2 border-[1px] rounded-[10px] w-[100%] mt-2 outline-none" required>
+                            </div>
+                        </div>
+                        <div class="sm:w-[45%]">
+                            <div>
+                                <label class="font-[600]">Quantity</label>
+                                <input type="text" name="quantity[]" class="p-2 border-[1px] rounded-[10px] w-[100%] mt-2 outline-none" required>
+                            </div>
+                        </div>
+                        <div class="sm:w-[10%]">
+                            <div class="mt-8">
+                                <button type="button" class="bg-green-500 p-2 px-5 text-white rounded-[10px] w-[100%] remove-row">Remove</button>
+                            </div>
+                        </div>
+                    `;
+        
+                    // Append the new row to the container
+                    inputContainer.appendChild(newRow);
+                }
+        
+                if (e.target.classList.contains('remove-row')) {
+                    e.preventDefault();
+                    const row = e.target.closest('.input-row');
+                    inputContainer.removeChild(row);
+                }
+            });
+        });
+        </script>
+    
 </body>
 </html>

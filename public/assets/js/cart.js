@@ -5,6 +5,24 @@ openButton.addEventListener('click',function(){
     openButton.style.display = "none"
 })
 
+// Handle size selection
+const sizeButtons = document.querySelectorAll('.size-button');
+sizeButtons.forEach(button => {
+    button.addEventListener('click', function () {
+        // Deselect previously selected size
+        sizeButtons.forEach(btn => btn.setAttribute('data-selected', 'false'));
+        sizeButtons.forEach(btn => btn.classList.remove('border-red-600', 'bg-red-100'));
+
+        // Select the clicked size
+        button.setAttribute('data-selected', 'true');
+        button.classList.add('border-red-600', 'bg-red-100');
+
+        // Update the selected size input
+        document.getElementById('selected-size').value = button.getAttribute('data-size');
+    });
+});
+
+
 document.getElementById('addToCart').addEventListener('click', function (e) {
     e.preventDefault();
     let productData = {

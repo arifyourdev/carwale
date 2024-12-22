@@ -7,7 +7,7 @@ export const addToCart = async (req, res) => {
     if (req.session.user) {
         try {
             const userId = req.session.user.id;
-            const { product_id, product_name, product_price, quantity, product_image } = productData;
+            const { product_id, product_name,product_size, product_price, quantity, product_image } = productData;
 
             const [existingProduct] = await connect.execute(
                 'SELECT quantity FROM cu_cart WHERE user_id = ? AND product_id = ?',
@@ -23,8 +23,8 @@ export const addToCart = async (req, res) => {
             } else {
 
                 await connect.execute(
-                    'INSERT INTO cu_cart (user_id, product_id, product_name, product_price, quantity, product_image, created_at) VALUES (?, ?, ?, ?, ?, ?, NOW())',
-                    [userId, product_id, product_name, product_price, quantity, product_image]
+                    'INSERT INTO cu_cart (user_id, product_id, product_name, product_size, product_price, quantity, product_image, created_at) VALUES (?, ?, ?, ?, ?, ?, NOW())',
+                    [userId, product_id, product_name,product_size, product_price, quantity, product_image]
                 );
             }
 
