@@ -377,3 +377,45 @@ html{
 .bg-red-600{
     background-color: rgb(195 32 38) !important;
 }
+.size-disabled ,.item-size-disabled{
+    cursor: no-drop;
+}
+.size-disabled::after,.item-size-disabled::after{
+    content: "";
+    height: 1px;
+    position: absolute;
+    top: 23px;
+    left: 0px;
+    width: 50px;
+    display: inline-block;
+    background: #9b8c8c;
+    transform: rotate(133deg);
+}
+.item-size-disabled::after{
+    width: 35px;
+    top: 18px;
+}
+
+/* Tooltip styles */
+.tooltip {
+    display: none;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 100%; /* Position above the button */
+    margin-bottom: 8px;
+    padding: 4px 12px;
+    background-color: #c01717;
+    color: #fff;
+    font-size: 12px;
+    border-radius: 4px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    white-space: nowrap;
+}
+
+/* Show tooltip when hovering over a size button */
+.size-button:hover + .tooltip {
+    display: flex;
+    opacity: 1;
+}

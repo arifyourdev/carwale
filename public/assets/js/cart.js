@@ -7,7 +7,9 @@ openButton.addEventListener('click',function(){
 
 // Handle size selection
 const sizeButtons = document.querySelectorAll('.size-button');
+
 sizeButtons.forEach(button => {
+
     button.addEventListener('click', function () {
         // Deselect previously selected size
         sizeButtons.forEach(btn => btn.setAttribute('data-selected', 'false'));
@@ -25,13 +27,22 @@ sizeButtons.forEach(button => {
 
 document.getElementById('addToCart').addEventListener('click', function (e) {
     e.preventDefault();
+
+    const selectedSize = document.getElementById('selected-size').value;
+
+    if (!selectedSize) {
+        alert('Please select a size before adding to cart.');
+        return;
+    }
+
     let productData = {
         product_id: document.querySelector('input[name="product_id"]').value,
         product_name: document.querySelector('input[name="product_name"]').value,
         product_price: document.querySelector('input[name="product_price"]').value,
         quantity: document.querySelector('input[name="quantity"]').value,
-        product_image: document.querySelector('input[name="product_image"]').value
-    };
+        product_size: selectedSize,
+        product_image: document.querySelector('input[name="product_image"]').value,
+     };
     console.log(productData)
 
     fetch('/add-to-cart', {

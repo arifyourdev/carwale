@@ -161,8 +161,6 @@ export const loginUser = async (req,res) =>{
         token:token
       }
 
-      console.log("Redirect URL saved in session:", req.session.redirectTo);
-
        // If session cart exists, migrate it to the database
        if (req.session.cart && req.session.cart.length > 0) {
         const userId = user.id;
@@ -182,7 +180,7 @@ export const loginUser = async (req,res) =>{
                 );
             } else {
                  await connect.execute(
-                    'INSERT INTO cu_cart (user_id, product_id, product_name, product_size, product_price, quantity, product_image, created_at) VALUES (?, ?, ?, ?, ?, ?, NOW())',
+                    'INSERT INTO cu_cart (user_id, product_id, product_name, product_size, product_price, quantity, product_image, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, NOW())',
                     [userId, product_id, product_name, product_size, product_price, quantity, product_image]
                 );
             }
@@ -210,7 +208,7 @@ export const loginUser = async (req,res) =>{
                 );
             } else {
                 await connect.execute(
-                    'INSERT INTO cu_cart (user_id, product_id, product_name, product_size, product_price, quantity, product_image, created_at) VALUES (?, ?, ?, ?, ?, ?, NOW())',
+                    'INSERT INTO cu_cart (user_id, product_id, product_name, product_size, product_price, quantity, product_image, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, NOW())',
                     [userId, product_id, product_name, product_size, product_price, quantity, product_image]
                 );
             }
@@ -222,7 +220,6 @@ export const loginUser = async (req,res) =>{
 
     const redirectTo = req.session.redirectTo || '/';
     delete req.session.redirectTo; 
-    console.log("Redirecting to:", redirectTo);
     res.redirect(redirectTo);
     
    

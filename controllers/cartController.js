@@ -7,24 +7,24 @@ export const addToCart = async (req, res) => {
     if (req.session.user) {
         try {
             const userId = req.session.user.id;
-            const { product_id, product_name,product_size, product_price, quantity, product_image } = productData;
+            const { product_id, product_name, product_size, product_price, quantity, product_image } = productData;
 
             const [existingProduct] = await connect.execute(
-                'SELECT quantity FROM cu_cart WHERE user_id = ? AND product_id = ?',
-                [userId, product_id]
+                'SELECT quantity FROM cu_cart WHERE user_id = ? AND product_id = ? AND product_size = ?',
+                [userId, product_id, product_size]
             );
 
             if (existingProduct.length > 0) {
 
                 await connect.execute(
-                    'UPDATE cu_cart SET quantity = quantity + ? WHERE user_id = ? AND product_id = ?',
-                    [quantity, userId, product_id]
+                    'UPDATE cu_cart SET quantity = quantity + ? WHERE user_id = ? AND product_id = ? AND product_size = ?',
+                    [quantity, userId, product_id ,product_size]
                 );
             } else {
 
                 await connect.execute(
-                    'INSERT INTO cu_cart (user_id, product_id, product_name, product_size, product_price, quantity, product_image, created_at) VALUES (?, ?, ?, ?, ?, ?, NOW())',
-                    [userId, product_id, product_name,product_size, product_price, quantity, product_image]
+                    'INSERT INTO cu_cart (user_id, product_id, product_name, product_size, product_price, quantity, product_image, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, NOW())',
+                    [userId, product_id, product_name, product_size, product_price, quantity, product_image]
                 );
             }
 
@@ -39,7 +39,7 @@ export const addToCart = async (req, res) => {
             req.session.cart = [];
         }
 
-        const existingProductIndex = req.session.cart.findIndex(item => item.product_id.trim() === productData.product_id.trim());
+        const existingProductIndex = req.session.cart.findIndex(item => item.product_id === productData.product_id && item.product_size === productData.product_size);
 
         if (existingProductIndex !== -1) {
 
@@ -138,16 +138,51 @@ export const updateCartQuantity = async (req, res) => {
     }
 };
 
+// Update Size
+export const updateCartSize = async (req,res) =>{
+    const { product_id, size } = req.body;
+    if (req.session.user) {
+        // Logged-in user
+        const userId = req.session.user.id;
+
+        try {
+            // Update the size in the database
+            await connect.execute(
+                'UPDATE cu_cart SET product_size = ? WHERE user_id = ? AND product_id = ?',
+                [size, userId, product_id]
+            );
+            res.json({ success: true, message: 'Size updated successfully.' });
+        } catch (err) {
+            console.error('Error updating size:', err);
+            res.json({ success: false, message: 'Failed to update size.' });
+        }
+    } else {
+        // Guest user (session-based cart)
+        if (req.session.cart) {
+            const productIndex = req.session.cart.findIndex(item => item.product_id === product_id);
+
+            if (productIndex !== -1) {
+                req.session.cart[productIndex].product_size = size;
+
+                res.json({ success: true, message: 'Size updated successfully.' });
+            } else {
+                res.json({ success: false, message: 'Product not found in cart.' });
+            }
+        } else {
+            res.json({ success: false, message: 'No cart found in session.' });
+        }
+    }
+}
 
 // Cart Delete Controller
 export const removeCart = async (req, res) => {
-    const productId = req.params.id;
+    const { id: productId, size: productSize } = req.params;
 
     if (req.session.user) {
        
         try {
             const userId = req.session.user.id
-            const [cart_query] = await connect.execute("DELETE FROM cu_cart WHERE user_id =? AND product_id = ?", [userId, productId])
+            const [cart_query] = await connect.execute("DELETE FROM cu_cart WHERE user_id =? AND product_id = ? AND product_size = ?", [userId, productId ,productSize])
             if (cart_query.affectedRows  > 0) {
                 return res.json({ success: true, message: 'Item removed from cart successfully' });
             } else {
@@ -162,9 +197,9 @@ export const removeCart = async (req, res) => {
     else {
 
         let cart = req.session.cart || [];
-        const itemIndex = cart.findIndex(item => parseFloat(item.product_id) === parseInt(productId));
+        const itemIndex = cart.findIndex(item => item.product_id === productId && item.product_size === productSize);
+        
         if (itemIndex > -1) {
-
             cart.splice(itemIndex, 1);
             req.session.cart = cart;
 
@@ -176,14 +211,32 @@ export const removeCart = async (req, res) => {
 
 }
 
+// Display Cart Items
 export const disCart = async (req, res, next) => {
 
     try {
-        const { cartData, cartCount } = await getCartData(req)
-        res.render('cu-cart', { cartData, cartCount });
+        const { cartData, cartCount } = await getCartData(req);
+        const sizePromises = cartData.map(async (item) => {
+            const [sizesData] = await connect.execute("SELECT size, quantity FROM size WHERE product_id = ?", [item.product_id]);
+            return { product_id: item.product_id, sizes: sizesData };
+        });
+        const sizesDataArray = await Promise.all(sizePromises);
+
+        const sizesMap = sizesDataArray.reduce((map, data) => {
+            map[data.product_id] = data.sizes;
+            return map;
+        }, {});
+
+        res.render('cu-cart', 
+            { 
+                cartData, 
+                cartCount,
+                sizesMap 
+            });
+
     } catch (err) {
         console.error(err);
-        res.render('cu-cart', { cartData: [], cartCount: 0 });
+        res.render('cu-cart', { cartData: [], cartCount: 0, sizesMap });
     }
 }
 

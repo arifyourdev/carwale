@@ -1,5 +1,5 @@
 import express from "express";
-import { addToCart ,disCart ,addAddress ,disAddress ,updateCartQuantity, removeCart} from "../controllers/cartController.js";
+import { addToCart ,disCart ,addAddress ,disAddress ,updateCartQuantity, removeCart ,updateCartSize} from "../controllers/cartController.js";
 import { ensureAuthenticated } from "../middleware/authMiddleware.js";
 import { buyNow } from "../controllers/buynowController.js";
 
@@ -16,7 +16,8 @@ router.post('/delivery-info', addAddress);
 router.post('/buy-now',buyNow)
 
 router.post('/update-cart-quantity' ,updateCartQuantity);
+router.post('/update-cart-size' ,updateCartSize);
 
-router.delete('/remove-item/:id' ,removeCart);
+router.delete('/remove-item/:id/:size' ,removeCart);
 
 export default router

@@ -67,8 +67,8 @@ export const createOrder = async (req,res) => {
             ],
 
             application_context: {
-                return_url: process.env.BASE_URL + '/complete-order',
-                cancel_url: process.env.BASE_URL + '/cancel-order',
+                return_url: process.env.BASE_URL + 'complete-order',
+                cancel_url: process.env.BASE_URL + 'cancel-order',
                 shipping_preference: 'NO_SHIPPING',
                 user_action: 'PAY_NOW',
                 brand_name: 'cajhb'
@@ -106,7 +106,7 @@ export const capturePayment = async (orderId) => {
 export const completeOrder = async (req, res) => {
     try {
         await capturePayment(req.query.token)
-        res.send('Course purchased successfully')
+        res.render('complete-order');
     } catch (error) {
         res.status(500).send('Error: ' + error.message)
     }

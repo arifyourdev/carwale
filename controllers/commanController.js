@@ -41,7 +41,7 @@ export const getSingleEngine = async (req,res) =>{
     try{
       const {seo_url} = req.params;
       const [engineData] = await connect.execute("SELECT * FROM engines WHERE seo_url = ?",[seo_url])
-      const [sizesData] = await connect.execute("SELECT size, quantity FROM size WHERE engine_id = ?", [engineData[0].id]);
+      const [sizesData] = await connect.execute("SELECT size, quantity FROM size WHERE product_id = ?", [engineData[0].id]);
       const {cartData ,cartCount} = await getCartData(req)
       res.render('engine-detail', {
         engineData: engineData[0],

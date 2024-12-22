@@ -6,7 +6,7 @@ const router = express.Router();
 router.post('/pay', createOrder)
 
 
-router.get('/complete-order', completeOrder)
+router.get('/complete-order', completeOrder);
 router.get('/cancel-order', cancelOrder)
 
 router.get('/cancel-order', (req, res) => {

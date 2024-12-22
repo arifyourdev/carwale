@@ -45,23 +45,23 @@ export const addEngine = async (req, res) => {
             console.log('Temporary file deleted');
         });
 
-        const engineId = engineResult.insertId; 
+        const product_id = engineResult.insertId; 
 
         if (Array.isArray(size) && Array.isArray(quantity)) {
             const sizeData = size.map((sizeValue, index) => [
-                engineId,
+                product_id,
                 sizeValue,
                 quantity[index],
             ]);
 
             await connect.query(
-                "INSERT INTO size (engine_id, size, quantity) VALUES ?",
+                "INSERT INTO size (product_id, size, quantity) VALUES ?",
                 [sizeData]
             );
         } else if (size && quantity) {
             // Handle single size and quantity input
             await connect.execute(
-                "INSERT INTO size (engine_id, size, quantity) VALUES (?, ?, ?)",
+                "INSERT INTO size (product_id, size, quantity) VALUES (?, ?, ?)",
                 [engineId, size, quantity]
             );
         }

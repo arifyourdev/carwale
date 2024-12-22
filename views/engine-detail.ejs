@@ -128,19 +128,29 @@
                             </ul>
                         </div>
                        <div class="mt-4">
-                          <ul class="flex gap-4">
-                    <% sizes.forEach(size => { %>    
-                            <li>
-                                <button 
-                                class="size-button bg-gray-100 font-[600] w-[50px] h-[50px] border-[1px] rounded-full hover:border-red-600"
-                                data-size="<%= size.size %>" 
-                                data-quantity="<%= size.quantity %>"
-                                data-selected="false">
-                                <%= size.size %>
-                            </button>
-                            </li>
-                    <% }); %>
-                          </ul>
+                        <ul class="flex gap-4">
+                            <% sizes.forEach(size => { %>    
+                                <li class="relative">
+                                    <button 
+                                        class="size-button font-[600] w-[50px] h-[50px] border-[1px] rounded-full 
+                                        <% if (size.quantity === 0) { %> size-disabled <% } else { %> bg-gray-100 hover:border-red-600 <% } %>"
+                                        data-size="<%= size.size %>" 
+                                        data-quantity="<%= size.quantity %>"
+                                        data-selected="false"
+                                        <% if (size.quantity === 0) { %> disabled <% } %>
+                                        <% if (size.quantity < 5) { %>   <%= size.quantity %> items available" <% } %>
+                                        >
+                                        <%= size.size %>
+                                    </button>
+                                    <% if (size.quantity > 0 && size.quantity < 5) { %>
+                                        <div class="tooltip hidden absolute left-1/2 transform -translate-x-1/2 bottom-full mb-2 px-4 py-2 bg-gray-800 text-white text-sm rounded opacity-0 transition-opacity duration-300">
+                                            Hurry up! Only <%= size.quantity %> items left
+                                        </div>
+                                    <% } %>
+                                </li>
+                            <% }); %>
+                        </ul>
+                         
                           <input type="hidden" id="selected-size" name="selected_size" value="">
                        </div> 
                         <div class="mt-5">
