@@ -26,7 +26,10 @@ router.get('/appointments-list',AppointmentList);
 // Engines Route
 router.get('/engines-list', engineList)
 router.get('/add-engines',viewEngine)
-router.post('/add-engines',upload.single('main_image_path'), addEngine)
+router.post('/add-engines', upload.fields([
+    { name: 'main_image_path', maxCount: 1 }, // Single main image
+    { name: 'product_image', maxCount: 10 },  // Up to 10 additional images
+]), addEngine);
 router.get('/edit-engine/:id' ,editEngine)
 router.post('/edit-engine',updateEngine)
 router.delete('/delete-engine/:id',deleteEngine)

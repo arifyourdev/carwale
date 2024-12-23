@@ -29,4 +29,4 @@ export const upload = multer({
         }
         cb(new Error('Only images (jpeg, webp, jpg, png) are allowed!'));
     },
-});
+})

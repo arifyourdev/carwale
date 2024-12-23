@@ -1,122 +1,141 @@
-<html lang="en"></html>
+import axios from "axios"
+import connect from "../db/connect.js";
 
-</html>
+async function generateAccessToken() {
+    const response = await axios({
+        url: process.env.PAYPAL_BASE_URL + '/v1/oauth2/token',
+        method: 'post',
+        data: 'grant_type=client_credentials',
+        auth: {
+            username: process.env.PAYPAL_CLIENT_ID,
+            password: process.env.PAYPAL_SECRET
+        }
+    })
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Car Universal -  Cart</title>
+    return response.data.access_token
+}
 
-    <%- include('includes/head') %>
-        <!-- Tailwind Css -->
-</head>
+async function generateCustomOrderId() {
+    try {
+        const [result] = await connect.execute('SELECT MAX(order_id) AS lastOrderId FROM orders');
+        const lastOrderId = result[0].lastOrderId;
 
-<body class="bg-gray-100">
+        if (!lastOrderId) {
+            return 'CU__00001'; // Start with the first order ID if no previous orders exist
+        }
 
-    </style>
-    <!--------------------------------- Main Header Section -------------------------------->
+        const numericPart = parseInt(lastOrderId.split('__')[1], 10);
+        const newNumericPart = (numericPart + 1).toString().padStart(5, '0'); // Ensure 5 digits with leading zeros
+        return `CU__${newNumericPart}`;
+    } catch (error) {
+        console.error('Error generating custom order ID:', error);
+        throw new Error('Unable to generate order ID');
+    }
+}
 
-    <%- include('includes/header') %>
 
-        <section class="md:p-10 pt-5">
-            <div class="xl:w-[1280px] m-auto">
-                <div class="md:flex block justify-center gap-10 mx-2">
-                    <div class="md:w-[100%]">
-                        <div class="">
-                            <h3 class="text-2xl font-bold">My Cart</h3>
-                        </div>
-                        <div class=" mt-[25px] rounded-[10px] flex gap-4">
-                           <div class="sm:w-[65%] bg-white p-[25px]">
-                            <table class="table w-[100%]">
-                                <thead>
-                                    <tr class="text-left">
-                                        <th class="text-[18px] font-[700] pb-3">Product</th>
-                                        <th class="text-[18px] font-[700] pb-3 w-[15%]">Price</th>
-                                        <th class="text-[18px] font-[700] pb-3 w-[15%]">Quantity</th>
-                                        <th class="text-[18px] font-[700] pb-3 w-[15%]">Total</th>
-                                        <th class="text-[18px] font-[700] pb-3 w-[10%]"></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <%  var total = 0 %>
-                                    <% cartData.forEach(item => { %>
-                                        <% total += (item.product_price * item.quantity); %>
-                                        
-                                    <tr>
-                                        <td>
-                                            <div class="flex items-center gap-2">
-                                                <div><img src="<%= item.product_image %>" class="w-[80px]" alt=""></div>
-                                                <div>
-                                                    <p class="text-gray-400"><%= item.product_name %> </p>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>£<%= item.product_price %></td>
-                                        <td>
-                                            <div class="border-[1px] flex justify-between p-[8px] items-center rounded-[10px] cursor-pointer w-[60%]">
-                                                <span>-</span>
-                                                <span><%= item.quantity %></span>
-                                                <span>+</span>
-                                           </div>
-                                        </td>
-                                        <td>£<%= item.product_price * item.quantity %></td>
-                                        <td>
-                                            <a href="/remove-item/<%= item.product_id %>" title="remove"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="#e22222" d="M7 21q-.825 0-1.412-.587T5 19V6H4V4h5V3h6v1h5v2h-1v13q0 .825-.587 1.413T17 21zm2-4h2V8H9zm4 0h2V8h-2z"/></svg></a>
-                                        </td>
-                                    </tr>
-                                    <% }) %>
-                                </tbody>
-                            </table>
-                            
-                           </div>
-                           <div class=" md:w-[25%]">
-                           
-                            <div class="bg-white p-[15px] rounded-[10px]">
-                                <div>
-                                  
-                                    <div class="mt-[10px]">
-                                        <ul class="px-3">
-                                            <li class="flex justify-between mb-4">
-                                                <h3 class="text-gray-500">Sub- Total</h3>
-                                                <h3 class="font-[600] text-[16px]">£ <%= total %></h3>
-                                            </li>
-                                            <li class="flex justify-between mb-4"> 
-                                                <h3 class="text-gray-500">GST</h3>
-                                                <h3 class="font-[600] text-[16px]">£0.00</h3>
-                                            </li>
-                                            <li class="flex justify-between mb-4"> 
-                                                <h3 class="text-gray-500">Discount</h3>
-                                                <h3 class="font-[600] text-[16px]">£0.00</h3>
-                                            </li>
-                                            <li class="flex justify-between mb-4"> 
-                                                <h3 class="text-gray-500">Delivery Fee</h3>
-                                                <h3 class="font-[600] text-[16px]">£00.00</h3>
-                                            </li>
-                                        </ul>
-                                        <hr>
-                                        <ul class="px-3 mt-[10px]">
-                                            <li class="flex justify-between mb-4"> 
-                                                <h3 class="text-black-600 font-[600]">Total Cost</h3>
-                                                <h3 class="font-[600] text-[18px]">£<%= total %></h3>
-                                            </li>
-                                        </ul>
-                                        <div class="flex gap-[5px] justify-center mt-[20px] mb-[15px] sm:px-[10px] items-center">
-                                             <a href="/delivery-info" class="bg-red-600 text-white p-2 px-[20px] rounded-[30px] w-[100%] text-center">Proccess to Checkout</a>
-                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        </div>
-                     </div>
-                 </div>
-            </div>
-            </div>
-        </section>
+export const createOrder = async (req, res) => {
+    try {
+        const orderId = await generateCustomOrderId();
+        const cartData = JSON.parse(req.body.cartData);
+        const addressId = req.body.selected_address_id; // Dynamically sent address ID
+        const userId = req.session.user.id;
 
-        <%- include('includes/footer') %>
-            <%- include('includes/foot') %>
+        if (!cartData || cartData.length === 0) {
+            return res.status(400).json({ error: 'Cart data is required' });
+        }
 
-</body>
+        if (!addressId) {
+            return res.status(400).json({ error: 'Address is required' });
+        }
 
-</html>
+        let totalAmount = 0;
+        const items = cartData.map(item => {
+            totalAmount += item.product_price * item.quantity;
+            return {
+                name: item.product_name,
+                description: item.description,
+                quantity: item.quantity,
+                unit_amount: {
+                    currency_code: 'GBP',
+                    value: item.product_price,
+                },
+            };
+        });
+
+        // Insert into `orders`
+        const orderQuery = `
+            INSERT INTO orders (order_id, user_id, address_id, total_price, order_status, payment_status, payment_type, created_at)
+            VALUES (?, ?, ?, ?, ?, ?, ?, NOW());
+        `;
+        await connect.execute(orderQuery, [
+            orderId,
+            userId,
+            addressId,
+            totalAmount.toFixed(2),
+            'PENDING',
+            'PENDING',
+            req.body.payment_method || 'PAYPAL',
+        ]);
+
+        // Insert into `order_items`
+        const orderItemsQuery = `
+            INSERT INTO order_details (order_id, user_id, product_id, product_size, price, quantity, created_at)
+            VALUES (?, ?, ?, ?, ?, ?, NOW());
+        `;
+        for (const item of cartData) {
+            await connect.execute(orderItemsQuery, [
+                orderId,
+                userId,
+                item.product_id,
+                item.product_size,
+                item.product_price,
+                item.quantity,
+            ]);
+        }
+
+        // Clear cart data from database and session
+        await connect.execute('DELETE FROM cu_cart WHERE user_id = ?', [userId]);
+        req.session.cart = [];
+
+        res.status(200).json({ success: true, message: 'Order created successfully', orderId });
+    } catch (error) {
+        console.error('Error creating order:', error);
+        res.status(500).json({ success: false, message: 'Error creating order' });
+    }
+};
+
+
+
+export const capturePayment = async (orderId) => {
+    try {
+        const accessToken = await generateAccessToken()
+
+        const response = await axios({
+            url: process.env.PAYPAL_BASE_URL + `/v2/checkout/orders/${orderId}/capture`,
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + accessToken
+            }
+        })
+
+        return response.data
+    } catch (error) {
+        console.error(error)
+        throw new Error('Error capturing payment: ' + error.message)
+    }
+}
+
+export const completeOrder = async (req, res) => {
+    try {
+        await capturePayment(req.query.token)
+        res.render('complete-order');
+    } catch (error) {
+        res.status(500).send('Error: ' + error.message)
+    }
+}
+
+export const cancelOrder = (req, res) => {
+    res.redirect('/')
+}

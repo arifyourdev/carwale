@@ -29,24 +29,42 @@ export const addEngine = async (req, res) => {
     try {
         const { manufacturer, c_modal, c_gen, engine_name, seo_url, description, price, discount, main_price, size, quantity } = req.body;
 
-        const result = await cloudinary.v2.uploader.upload(req.file.path, {
+        const mainImage = req.files['main_image_path'][0]; // Single file
+        const additionalImages = req.files['product_image']; // Array of files
+
+         const mainImageResult = await cloudinary.v2.uploader.upload(mainImage.path, {
             folder: 'engine-images',
         });
+        const main_image_path = mainImageResult.secure_url;
 
-        const main_image_path = result.secure_url;
-
+        // Insert engine data into `engines` table
         const [engineResult] = await connect.execute(
             "INSERT INTO engines (manufacturer, c_modal, c_gen, engine_name, seo_url, description, price, discount, main_price, main_image_path, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())",
             [manufacturer, c_modal, c_gen, engine_name, seo_url, description, price, discount, main_price, main_image_path]
         );
 
-        fs.unlink(req.file.path, (err) => {
-            if (err) console.error(err);
-            console.log('Temporary file deleted');
-        });
+        const product_id = engineResult.insertId;
 
-        const product_id = engineResult.insertId; 
+        const imageInsertData = [];
 
+        for (const file of additionalImages) {
+            const result = await cloudinary.v2.uploader.upload(file.path, {
+                folder: 'engine-images',
+            });
+            imageInsertData.push([product_id, result.secure_url]);
+            fs.unlink(file.path, (err) => {
+                if (err) console.error(err);
+            });
+        }
+
+        if (imageInsertData.length > 0) {
+            await connect.query(
+                "INSERT INTO product_images (product_id, product_image) VALUES ?",
+                [imageInsertData]
+            );
+        }
+
+        // Insert sizes and quantities
         if (Array.isArray(size) && Array.isArray(quantity)) {
             const sizeData = size.map((sizeValue, index) => [
                 product_id,
@@ -59,10 +77,9 @@ export const addEngine = async (req, res) => {
                 [sizeData]
             );
         } else if (size && quantity) {
-            // Handle single size and quantity input
             await connect.execute(
                 "INSERT INTO size (product_id, size, quantity) VALUES (?, ?, ?)",
-                [engineId, size, quantity]
+                [product_id, size, quantity]
             );
         }
 
